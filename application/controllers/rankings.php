@@ -13,7 +13,7 @@ class Rankings extends MY_Controller {
 	}
 
 	public function index() {
-		$this->render('rankings');
+		$this->render('rankings_view');
 	}
 
 	public function editDBConfig() {

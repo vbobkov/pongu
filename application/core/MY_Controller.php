@@ -132,12 +132,12 @@ class MY_Controller extends CI_Controller {
 			$js_files = array();
 			if($this->session->userdata('user_id') != null && $this->session->userdata('type') > 0) {
 				$css_files[] = 'assets/css/addons/jquery-ui.custom.css';
-				$css_files[] = 'assets/css/admin.css';
 				$js_files[] = 'assets/js/addons/jquery-1.10.2.min.js';
 				$js_files[] = 'assets/js/addons/jquery-ui.min.js';
 				$js_files[] = 'assets/js/addons/json2.min.js';
 				$js_files[] = 'assets/js/admin.js';
 			}
+			$css_files[] = 'assets/css/admin.css';
 
 			// $version = filemtime('.git/index');
 			$version = 1337;
