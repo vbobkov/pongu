@@ -1,0 +1,36 @@
+{
+	"dev": {
+		"hostname": "127.0.0.1",
+		"username": "pongu",
+		"password": "Ub3rL33tH4X",
+		"database": "pongu",
+		"dbdriver": "mysql",
+		"dbprefix": "",
+		"pconnect": true,
+		"db_debug": true,
+		"cache_on": false,
+		"cachedir": "",
+		"char_set": "utf8",
+		"dbcollat": "utf8_general_ci",
+		"swap_pre": "",
+		"autoinit": true,
+		"stricton": false
+	},
+	"live": {
+		"hostname": "127.0.0.1",
+		"username": "pongu",
+		"password": "Ub3rL33tH4X",
+		"database": "pongu",
+		"dbdriver": "mysql",
+		"dbprefix": "",
+		"pconnect": true,
+		"db_debug": true,
+		"cache_on": false,
+		"cachedir": "",
+		"char_set": "utf8",
+		"dbcollat": "utf8_general_ci",
+		"swap_pre": "",
+		"autoinit": true,
+		"stricton": false
+	}
+}

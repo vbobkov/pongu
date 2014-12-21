@@ -1,0 +1,207 @@
+html, body {
+	font-family: sans-serif;
+	font-size: 1em;
+	margin: 0;
+	padding: 0;
+}
+
+button {
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #cccccc 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#cccccc 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#cccccc 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#cccccc 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+
+	border: 1px solid #aaa;
+	font-size: 80%;
+	margin: 0em;
+	padding: 0.25em 0.5em 0.25em 0.5em;
+
+	border-radius: 0.25em;
+	-moz-border-radius: 0.25em;
+	-webkit-border-radius: 0.25em;
+}
+
+button:active {
+	background: #000;
+	color: #fff;
+}
+
+input,
+textarea {
+	font-size: 100%;
+}
+
+#header {
+	background-color: #000;
+	height: 2em;
+	width: 100%;
+}
+
+.CodeMirror {
+	border: 5px double #888;
+	height: 100% !important;
+	width: 100% !important;
+}
+
+.cssmenu-item {
+	height: 2em;
+	padding-left: 1.5em;
+}
+
+.cssmenu-item a {
+	color: #00cc00;
+	display: inline-block;
+	font-family: "Arial, Helvetica, sans-serif";
+	font-weight: bold;
+	height: 1em;
+	margin-top: 0.5em;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.cssmenu-item a:hover {
+	color: #00ff00;
+	text-decoration: underline;
+}
+
+.dialog {
+	background-color: rgba(255,255,255,0.5);
+	position: fixed;
+	z-index: 1337455;
+
+	border-radius: 1em;
+	-moz-border-radius: 1em;
+	-webkit-border-radius: 1em;
+	box-shadow: 0em 0em 1em 1em rgba(255,255,255,0.5);
+	-moz-box-shadow: 0em 0em 1em 1em rgba(255,255,255,0.5);
+	-webkit-box-shadow: 0em 0em 1em 1em rgba(255,255,255,0.5);
+}
+
+.dialog-background {
+	background: rgba(64,64,64,0.5);
+	height: 100%;
+	left: 0%;
+	position: fixed;
+	top: 0%;
+	width: 100%;
+	z-index: 1337;
+}
+
+.dialog.yes-no {
+	height: 10em;
+	left: 25%;
+	top: 25%;
+	width: 25em;
+}
+
+.dialog .message {
+	font-size: 125%;
+	margin-top: 0.5em;
+	text-align: center;
+}
+
+.dialog .option {
+	background-color: #666;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 150%;
+	margin: 2em 0em 0em 2em;
+	padding: 0.5em 2em 0.5em 2em;
+
+	border-radius: 1em;
+	-moz-border-radius: 1em;
+	-webkit-border-radius: 1em;
+}
+
+.dialog .option:hover {
+	color: #0f0;
+	text-decoration: underline;
+
+	box-shadow: 0em 0em 1em 0.5em rgba(128,255,128,0.5);
+	-moz-box-shadow: 0em 0em 1em 0.5em rgba(128,255,128,0.5);
+	-webkit-box-shadow: 0em 0em 1em 0.5em rgba(128,255,128,0.5);
+}
+
+#login_form,
+#change_password_form,
+#new_user_form,
+#delete_user_form,
+#db_config_form {
+	background:
+	linear-gradient(324deg, #dddddd 4%,   transparent 4%) -70px 43px,
+	linear-gradient( 36deg, #dddddd 4%,   transparent 4%) 30px 43px,
+	linear-gradient( 72deg, #66dd66 8.5%, transparent 8.5%) 30px 43px,
+	linear-gradient(288deg, #66dd66 8.5%, transparent 8.5%) -70px 43px,
+	linear-gradient(216deg, #66dd66 7.5%, transparent 7.5%) -70px 23px,
+	linear-gradient(144deg, #66dd66 7.5%, transparent 7.5%) 30px 23px,
+
+	linear-gradient(324deg, #dddddd 4%,   transparent 4%) -20px 93px,
+	linear-gradient( 36deg, #dddddd 4%,   transparent 4%) 80px 93px,
+	linear-gradient( 72deg, #66dd66 8.5%, transparent 8.5%) 80px 93px,
+	linear-gradient(288deg, #66dd66 8.5%, transparent 8.5%) -20px 93px,
+	linear-gradient(216deg, #66dd66 7.5%, transparent 7.5%) -20px 73px,
+	linear-gradient(144deg, #66dd66 7.5%, transparent 7.5%) 80px 73px;
+	background-color: #dddddd;
+	background-size: 100px 100px;
+
+	border: 1px solid #000;
+	display: inline-block;
+	margin: 2em;
+	padding: 2em 1em 2em 2em;
+
+	border-radius: 0em 1em 1em 0em;
+	-moz-border-radius: 0em 1em 1em 0em;
+	-webkit-border-radius: 0em 1em 1em 0em;
+}
+
+#login_form input,
+#change_password_form input,
+#new_user_form input,
+#delete_user_form input,
+#db_config_form input {
+	width: 10em;
+}
+
+#db_config_form input {
+	width: 20em;
+}
+
+#login_form label,
+#change_password_form label,
+#new_user_form label,
+#delete_user_form label,
+#db_config_form label {
+	display: inline-block;
+	text-align: right;
+	width: 7em;
+}
+
+#login_form .title,
+#change_password_form .message,
+#new_user_form .message,
+#delete_user_form .message,
+#db_config_form .message {
+	font-weight: bold;
+}
+
+#db_config_form .subtitle {
+	font-weight: bold;
+	font-size: 125%;
+	margin-left: 1em;
+	text-decoration: underline;
+}
+
+.header {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.big-header {
+	font-size: 200%;
+	margin-bottom: 0.5em;
+}
