@@ -127,6 +127,14 @@ textarea {
 	-webkit-box-shadow: 0em 0em 1em 0.5em rgba(128,255,128,0.5);
 }
 
+.green {
+	color: #0d0;
+}
+
+.red {
+	color: #f00;
+}
+
 #login_form,
 #change_password_form,
 #new_user_form,
@@ -213,12 +221,20 @@ textarea {
 #pongu_rankings .headers .header {
 	display: inline-block;
 	margin: 0em 0.25em 0em 0.25em;
+	padding: 0.25em;
 	min-width: 5em;
-	text-align: center;
 }
 
 #pongu_rankings .headers .header:first-child {
 	min-width: 20em;
+}
+
+#pongu_rankings .headers .header:nth-child(2) {
+	min-width: 5.5em;
+}
+
+#pongu_rankings .headers .header:last-child {
+	min-width: 8em;
 }
 
 #pongu_rankings .players .player {
@@ -269,9 +285,44 @@ textarea {
 	padding: 0.25em;
 }
 
-#pongu_rankings .players .player .rating,
+#pongu_rankings .players .player .realtime_rating,
 #pongu_rankings .players .player .change {
 	height: 1em;
-	min-width: 3em;
 	padding: 1.5em 1em 1em 1em;
 }
+
+#pongu_rankings .players .player .realtime_rating {
+	min-width: 4em;
+}
+
+#pongu_rankings .players .player .change {
+	min-width: 7em;
+}
+
+#match {
+	background-color: rgba(224,224,224,0.5);
+	margin: 0em 0em 0.25em 10em;
+	padding: 1em;
+	position: fixed;
+	right: 1em;
+	top: 3em;
+	z-index: 1337455;
+
+	box-shadow: 0em 0em 1em #ccc;
+	-moz-box-shadow: 0em 0em 1em #ccc;
+	-webkit-box-shadow: 0em 0em 1em #ccc;
+}
+
+#match .row {
+}
+
+#match .row .cell {
+	display: inline-block;
+	text-align: center;
+	width: 15em;
+}
+
+#match .row .cell select {
+	width: 100%;
+}
+
