@@ -1,0 +1,149 @@
+# The user to run Nginx as, often www, www-data or nginx
+# It is safest to leave the previous setting as it is
+user nginx;
+# user www-data;
+
+# Decent starting point for this is the number of cores/threads on the machine
+# cat /proc/cpuinfo | grep ^processor | wc -l
+worker_processes 4;
+
+#
+worker_rlimit_nofile 262144;
+
+# Pid file location, the default value will often be just fine
+#pid /var/run/nginx.pid;
+
+
+events {
+	# 1024 is a decent starting point
+	# You can increase it further, but you should check "ulimit -n" before
+	# adjusting higher
+	# worker_connections 1024;
+	worker_connections 262144;
+
+	# If you find that this gives you extra performance feel free to uncomment
+	# I however didn't find it to have any effect at all
+	#multi_accept on;
+
+	#
+	#use epoll;
+}
+
+http {
+
+	#
+	# Basic optimizations
+	#
+
+	sendfile on;
+	tcp_nodelay on;
+
+	# This might be better set to on for some, off for some
+	# for me however, I saw no difference between having it enabled or disabled
+	tcp_nopush on;
+
+	# How long to wait for new request from the same connection
+	# keepalive_timeout 180;
+	keepalive_timeout 30;
+
+	# Don't advertise every detail of the server to all requests (security)
+	server_tokens off;
+
+	# Uncomment if you for some reason have a very long domain name
+	# server_names_hash_bucket_size 64;
+	server_names_hash_bucket_size 256;
+
+	# File type detection and default
+	#include /usr/local/etc/nginx/mime.types;
+	include /etc/nginx/mime.types;
+	default_type application/octet-stream;
+
+	#
+	client_max_body_size 128m;
+
+	#
+	# Logging Settings
+	#
+
+	# Access logging is a bit of useless, don't 
+	# enable it unless you really need to
+	# access_log /var/log/nginx/access.log;
+	access_log off;
+
+	# Error logging however is useful, make sure the destination folder exists
+	error_log /var/log/nginx/error.log;
+	#error_log stderr crit;
+
+	#
+	# Gzip Settings
+	#
+	# Gzipping content will increase performance from client's point of view
+	#
+
+	# Enable Gzip compression
+	gzip on;
+
+	# But disable it for clients that don't support it
+	gzip_disable "msie6";
+	gzip_disable "Wget";
+
+	# Make sure any third-party proxies cache things properly
+	gzip_vary on;
+
+	# Compress regardless of caching headers
+	gzip_proxied any;
+
+	# Compress as much as possible
+	gzip_comp_level 9;
+
+	# You might want to change this to 1.0 if you find Gzip gives you more
+	# than keepalive, as keepalive won't work with 1.0 and Gzip
+	# gzip_http_version 1.0;
+
+	# File types to Gzip compress, it works best for plain text files
+	gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+
+
+	server {
+		# listen 80;
+		server_name pongu.local;
+		#root  /Users/V/pongu;
+		root  /home/pongu;
+		index index.php index.html index.htm;
+
+		if ($request_uri ~* ^(/welcome(/index)?|/index(.php)?)/?$) {
+			rewrite ^(.*)$ / permanent;
+		}
+		if ($request_uri ~* index/?$) {
+			rewrite ^/(.*)/index/?$ /$1 permanent;
+		}
+		if (!-d $request_filename) {
+			rewrite ^/(.+)/$ /$1 permanent;
+		}
+		if ($request_uri ~* ^/system) {
+			rewrite ^/(.*)$ /index.php?/$1 last;
+			break;
+		}
+		if (!-e $request_filename) {
+			rewrite ^/(.*)$ /index.php?/$1 last;
+			break;
+		}
+		error_page 404 /index.php;
+		location ~ \.php$ {
+			fastcgi_pass 127.0.0.1:9000;
+			fastcgi_index index.php;
+			#fastcgi_param SCRIPT_FILENAME /Users/V/pongu$fastcgi_script_name;
+			fastcgi_param SCRIPT_FILENAME /home/pongu$fastcgi_script_name;
+			include fastcgi_params;
+		}
+		location ~ /(pseudo) {
+			deny all;
+			return 404;
+		}
+		location ~ /\.ht {
+			deny all;
+			return 404;
+		}
+	}
+}
