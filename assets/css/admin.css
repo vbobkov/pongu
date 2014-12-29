@@ -210,13 +210,68 @@ textarea {
 	margin: 2em;
 }
 
-#pongu_rankings .players .player .col {
+#pongu_rankings .headers .header {
 	display: inline-block;
-	min-height: 1em;
+	margin: 0em 0.25em 0em 0.25em;
 	min-width: 5em;
-	margin: 0em 1em 0em 1em;
+	text-align: center;
+}
+
+#pongu_rankings .headers .header:first-child {
+	min-width: 20em;
+}
+
+#pongu_rankings .players .player {
+	clear: both;
+	float: left;
+	margin: 0.125em 0em 0.125em 0em;
+}
+
+#pongu_rankings .players .player .col {
+	border: 1px solid black;
+	display: inline-block;
+	float: left;
+	min-width: 5em;
+	margin: 0em 0.25em 0em 0.25em;
+}
+
+#pongu_rankings .players .player .info {
+	min-width: 20em;
+}
+
+#pongu_rankings .players .player .nickname_container {
+	height: 2em;
+}
+
+#pongu_rankings .players .player .nickname_img {
+	float: left;
+	height: 32px;
+	width: 32px;
+}
+
+#pongu_rankings .players .player .nickname {
+	display: inline-block;
+	font-weight: bold;
+	margin-left: 0.25em;
+	padding-top: 0.5em;
+}
+
+#pongu_rankings .players .player .realname {
+	font-size: 75%;
 }
 
 #pongu_rankings .players .player .lname {
-	margin-left: 1em;
+	margin-left: 0.25em;
+}
+
+#pongu_rankings .players .player .info {
+	height: 3em;
+	padding: 0.25em;
+}
+
+#pongu_rankings .players .player .rating,
+#pongu_rankings .players .player .change {
+	height: 1em;
+	min-width: 3em;
+	padding: 1.5em 1em 1em 1em;
 }

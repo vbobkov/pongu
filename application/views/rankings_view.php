@@ -1,4 +1,9 @@
 <div id="pongu_rankings">
+	<div class="headers">
+		<div class="header">Player</div>
+		<div class="header">Rating</div>
+		<div class="header">Change</div>
+	</div>
 	<div class="players">
 	</div>
 </div>
@@ -58,7 +63,17 @@
 		var rankings;
 		var PLAYER_RANKING_HTML = '\
 			<div class="player">\
-				<div class="col info"><input type="hidden" name="player_id"><span class="fname"></span><span class="lname"></span><br /><span class="nickname"></span></div>\
+				<div class="col info">\
+					<input type="hidden" name="player_id">\
+					<div class="realname">\
+						<span class="fname"></span>\
+						<span class="lname"></span>\
+					</div>\
+					<div class="nickname_container">\
+						<div class="nickname_img"></div>\
+						<div class="nickname"></div>\
+					</div>\
+				</div>\
 				<div class="col rating"></div>\
 				<div class="col change"></div>\
 			</div>';
@@ -79,6 +94,9 @@
 				player_div = $(PLAYER_RANKING_HTML);
 				player_div.find('[name="player_id"]').prop('value', player['id']);
 				player_div.find('.nickname').html(player['nickname']);
+				if(player['nickname'] != '') {
+					player_div.find('.nickname_img').css('background', 'url(/assets/img/player_emblems/[32]' + encodeURIComponent(player['nickname']) + '.png)');
+				}
 				player_div.find('.fname').html(player['fname']);
 				player_div.find('.lname').html(player['lname']);
 				player_div.find('.rating').html(player['rating']);
