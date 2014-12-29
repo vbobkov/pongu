@@ -211,7 +211,8 @@ class Login extends MY_Controller {
 					fname VARCHAR(255),
 					lname VARCHAR(255),
 					rating INT(11),
-					UNIQUE(nickname)
+					realtime_rating INT(11),
+					UNIQUE(fname,lname)
 				);
 				DROP TABLE IF EXISTS battles;
 				CREATE TABLE battles (
@@ -226,11 +227,22 @@ class Login extends MY_Controller {
 			echo 'Nuked the database for great justice.<br />';
 
 			if($add_players) {
-				$sample1 = $plain_pdo->prepare("
-					INSERT INTO ratings() VALUES();
+				$add_players = $plain_pdo->prepare("
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Italian Stallion','Alberto','Lia',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Ben','Joven',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('DOTA','Ben','Wilder',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Daniel','Pegg',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Cabo Gus','Gus','Garcia',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Pendulum','Kyle','Holstein',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Mark','Cogley',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Michael','Banks',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Guido','Nick','Urbani',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Demolition Man','Peter','Molchanov',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Sarith','Kim',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Hawk','Vik','Bobkov',1500,1500);
 				");
-				// $sample1->execute($sample1_vars);
-				// echo 'Added players.<br />';
+				$add_players->execute();
+				echo 'Added players.<br />';
 			}
 		}
 		catch (PDOException $e)

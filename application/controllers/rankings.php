@@ -54,6 +54,24 @@ class Rankings extends MY_Controller {
 			)
 		);
 	}
+
+
+
+	public function getRankings() {
+		$rankings = $this->Users_model->getFromTable('players', 'id');
+		echo json_encode($rankings);
+	}
+
+	public function saveRankings() {
+		if($this->input->post('rankings') != null) {
+			$new_rankings = $this->input->post('rankings');
+		}
+		else {
+			$new_rankings = array();
+		}
+		$column_names = array('id','nickname','fname','lname','rating','realtime_rating');
+		$this->Users_model->importRows('players', 'id', $new_rankings, $column_names, $column_names);
+	}
 }
 
 /* End of file login.php */

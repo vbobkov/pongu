@@ -205,3 +205,18 @@ textarea {
 	font-size: 200%;
 	margin-bottom: 0.5em;
 }
+
+#pongu_rankings {
+	margin: 2em;
+}
+
+#pongu_rankings .players .player .col {
+	display: inline-block;
+	min-height: 1em;
+	min-width: 5em;
+	margin: 0em 1em 0em 1em;
+}
+
+#pongu_rankings .players .player .lname {
+	margin-left: 1em;
+}
