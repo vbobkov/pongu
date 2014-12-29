@@ -266,7 +266,9 @@
 			score_change = calcRatingChange(winner['realtime_rating'], loser['realtime_rating'], 1)
 			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
-			refreshRankings();
+			$.post('/rankings/saveRankings', {'rankings': rankings}, function(response) {
+				refreshRankings();
+			});
 		});
 	});
 </script>
