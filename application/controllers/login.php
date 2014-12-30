@@ -230,15 +230,15 @@ class Login extends MY_Controller {
 				$add_players = $plain_pdo->prepare("
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Italian Stallion','Alberto','Lia',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Ben','Joven',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Ben','Wilder',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Daniel','Pegg',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Bendetta','Ben','Wilder',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('El Presidente','Daniel','Pegg',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Cabo Gus','Gus','Garcia',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Pendulum','Kyle','Holstein',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Mark','Cogley',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Michael','Banks',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Nick','Urbani',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Rainmaker','Nick','Urbani',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Demolition Man','Peter','Molchanov',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Sarith','Kim',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Hulk','Sarith','Kim',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Hawk','Vik','Bobkov',1500,1500);
 				");
 				$add_players->execute();
