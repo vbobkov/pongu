@@ -305,7 +305,7 @@ textarea {
 	padding: 1em;
 	position: fixed;
 	right: 1em;
-	top: 3em;
+	top: 1em;
 	width: 40em;
 	z-index: 1337455;
 
@@ -365,4 +365,8 @@ textarea {
 #match .history .spell {
 	color: #f00;
 	font-style: italic;
+}
+
+#match .rank-changes {
+	margin-top: 1em;
 }

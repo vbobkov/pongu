@@ -21,27 +21,9 @@
 	<button class="add">Add</button>
 	<div class="header history-header">Combat Log</div>
 	<div class="history">
-		<!--
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
-		-->
 	</div>
+	<div class="rank-changes">Showing rank/rating changes since <span class="rank-changes-timestamp"></span>.</div>
+	<button class="reset-rank-epoch">Reset rank changes</button>
 </div>
 
 <script type="text/javascript">
@@ -63,6 +45,8 @@
 			<div class="col change"></div>\
 		</div>';
 	var HISTORY_LINE_HTML = '<div class="line"><span class="timestamp"></span><span class="caster"></span><span class="spell"></span><span class="target"></span></div>';
+	var T3H_DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+	var T3H_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 	var T3H_FINISHERS = {
 		0: 'Slam of Explodification',
 		1: 'Topspin of Destruction',
@@ -95,6 +79,7 @@
 	var REDIS_PINGER;
 	var combat_log = [];
 	var rankings;
+	var rank_epoch;
 
 
 
@@ -152,7 +137,6 @@
 				}
 			});
 		});
-		// {'rating_delta': rating_delta, 'rank_delta': rank_delta}
 		return changes;
 	}
 
@@ -206,6 +190,12 @@
 		});
 	}
 
+	function refreshRankEpoch() {
+		rank_epoch_date = new Date(rank_epoch['last_sync']);
+		$('#match .rank-changes .rank-changes-timestamp').html(T3H_DAYS[rank_epoch_date.getDay()] + ', ' + T3H_MONTHS[rank_epoch_date.getMonth()] + ' ' + rank_epoch_date.getDate() + ', ' + rank_epoch_date.getFullYear());
+		// $('#match .rank-changes .rank-changes-timestamp').html(rank_epoch_date.toString());
+	}
+
 	function refreshRankings() {
 		var rankings_container = $('#pongu_rankings .players');
 		rankings_container.html('');
@@ -248,6 +238,14 @@
 		});
 	}
 
+	function saveRankings() {
+		$.post('/rankings/saveRankings', {'rankings': rankings, 'rank_epoch': rank_epoch}, function(response) {
+			$.post('/red/saveMatchUpdates', {'rankings': rankings, 'combat_log': combat_log}, function(response2) {
+				refreshRankings();
+			});
+		});
+	}
+
 	function sortByName(a, b) {
 		if(a == b) {
 			return 0;
@@ -261,7 +259,7 @@
 	}
 
 	function sortByRatingDescending(a, b) {
-		result = parseInt(a['rating']) - parseInt(b['rating']);
+		result = parseInt(b['rating']) - parseInt(a['rating']);
 		if(result == 0) {
 			return sortByName(a['fname'] + ' ' + a['lname'], b['fname'] + ' ' + b['lname']);
 		}
@@ -309,7 +307,10 @@
 
 	$(document).ready(function() {
 		$.post('/rankings/getRankings', function(response) {
-			rankings = JSON.parse(response);
+			response = JSON.parse(response);
+			rankings = response['rankings'];
+			rank_epoch = response['rank_epoch'][0];
+			response = null;
 			// rankings = {};
 			// $.each(JSON.parse(response), function(idx, player) {
 				// rankings[player['id']] = player;
@@ -317,6 +318,8 @@
 
 			player_names = {};
 			refreshRankings();
+			refreshRankEpoch();
+
 			clearInterval(REDIS_PINGER);
 			REDIS_PINGER = setInterval(function() {
 				checkRedisForNewRankings();
@@ -374,12 +377,16 @@
 			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
 
-			$.post('/rankings/saveRankings', {'rankings': rankings}, function(response) {
-				// REDIS_LAST_SYNCED = Date.now();
-				$.post('/red/saveMatchUpdates', {'rankings': rankings, 'combat_log': combat_log}, function(response2) {
-					refreshRankings();
-				});
+			saveRankings();
+		});
+
+		$(document).delegate('#match .reset-rank-epoch', 'click', function(event) {
+			rank_epoch['last_sync'] = convertDateToYMDHMS(new Date());
+			$.each(rankings, function(idx, player) {
+				player['rating'] = player['realtime_rating'];
 			});
+			refreshRankEpoch();
+			saveRankings();
 		});
 	});
 </script>

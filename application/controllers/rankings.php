@@ -59,7 +59,8 @@ class Rankings extends MY_Controller {
 
 	public function getRankings() {
 		$rankings = $this->Users_model->getFromTable('players', 'id');
-		echo json_encode($rankings);
+		$rank_epoch = $this->Users_model->getFromTable('rank_epoch', 'id', array(1));
+		echo json_encode(array('rankings' => $rankings, 'rank_epoch' => $rank_epoch));
 	}
 
 	public function saveRankings() {
@@ -69,8 +70,16 @@ class Rankings extends MY_Controller {
 		else {
 			$new_rankings = array();
 		}
+		if($this->input->post('rank_epoch') != null) {
+			$new_rank_epoch = $this->input->post('rank_epoch');
+		}
+		else {
+			$new_rank_epoch = array();
+		}
 		$column_names = array('id','nickname','fname','lname','rating','realtime_rating');
+		$column_names2 = array('id','last_sync');
 		$this->Users_model->importRows('players', 'id', $new_rankings, $column_names, $column_names);
+		$this->Users_model->importRows('rank_epoch', 'id', array($new_rank_epoch), $column_names2, $column_names2);
 	}
 }
 

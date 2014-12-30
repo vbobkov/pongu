@@ -225,23 +225,29 @@ class Login extends MY_Controller {
 					realtime_rating INT(11),
 					UNIQUE(fname,lname)
 				);
+				DROP TABLE IF EXISTS rank_epoch;
+				CREATE TABLE rank_epoch (
+					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+					last_sync TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+				);
 			");
 			echo 'Nuked the database for great justice.<br />';
 
 			if($add_players) {
 				$add_players = $plain_pdo->prepare("
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Italian Stallion','Alberto','Lia',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Ben','Joven',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Ben Kenobi','Ben','Joven',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Bendetta','Ben','Wilder',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('El Presidente','Daniel','Pegg',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Cabo Gus','Gus','Garcia',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Pendulum','Kyle','Holstein',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Mark','Cogley',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Michael','Banks',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Honey Badger','Mark','Cogley',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('New York','Michael','Banks',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Rainmaker','Nick','Urbani',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Demolition Man','Peter','Molchanov',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Hulk','Sarith','Kim',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Hawk','Vik','Bobkov',1500,1500);
+					INSERT INTO rank_epoch() VALUES();
 				");
 				$add_players->execute();
 				echo 'Added players.<br />';
