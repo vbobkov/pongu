@@ -93,7 +93,7 @@
 	var HISTORY_LIMIT = 18;
 	var REDIS_LAST_SYNCED = Date.now() / 1000;
 	var REDIS_PINGER;
-	var match_history = [];
+	var combat_log = [];
 	var rankings;
 
 
@@ -161,14 +161,13 @@
 	function checkRedisForNewRankings() {
 		$.post('/red/getMatchUpdates', {'redis_last_synced': REDIS_LAST_SYNCED}, function(response) {
 			var redis_response = JSON.parse(response);
-			console.log(REDIS_LAST_SYNCED);
-			console.log(redis_response);
 			if(redis_response.length > 0) {
 				REDIS_LAST_SYNCED = redis_response[0];
 			}
-			if(redis_response.length > 1 && redis_response[1].length > 0) {
-				var new_rankings = JSON.parse(redis_response[1][0][0]);
-				rankings = new_rankings;
+			if(redis_response.length > 2 && redis_response[1].length > 0) {
+				rankings = JSON.parse(redis_response[1][0][0]);
+				combat_log = JSON.parse(redis_response[2][0][0]);
+				refreshCombatLog();
 				refreshRankings();
 			}
 		});
@@ -191,6 +190,20 @@
 		});
 		sites_select += end;
 		select_element.html(sites_select);
+	}
+
+	function refreshCombatLog() {
+		var combat_log_container = $('#match .history');
+		combat_log_container.html('');
+		var new_combat_log_line;
+		$.each(combat_log, function(idx, entry) {
+			new_combat_log_line = $(HISTORY_LINE_HTML);
+			new_combat_log_line.find('.timestamp').html('[' + entry['timestamp'] + ']');
+			new_combat_log_line.find('.caster').html(entry['caster']);
+			new_combat_log_line.find('.spell').html('{' + entry['spell'] + '}');
+			new_combat_log_line.find('.target').html(entry['target']);
+			combat_log_container.append(new_combat_log_line);
+		});
 	}
 
 	function refreshRankings() {
@@ -344,27 +357,18 @@
 					loser = player;
 				}
 			});
-			var new_history_entry = {
+			var new_combat_log_entry = {
 				'id': -1,
 				'timestamp': convertDateToYMDHMS(new Date()),
 				'caster': winner['nickname'],
 				'spell': T3H_FINISHERS[T3H_PLAYER_FINISHERS[winner['id']][Math.floor(Math.random() * T3H_PLAYER_FINISHERS[winner['id']].length)]],
 				'target': loser['nickname']
 			};
-			match_history.push(new_history_entry);
-			if(match_history.length > HISTORY_LIMIT) {
-				match_history.shift();
+			combat_log.push(new_combat_log_entry);
+			if(combat_log.length > HISTORY_LIMIT) {
+				combat_log.shift();
 			}
-			var match_history_container = $('#match .history');
-			var new_history_line = $(HISTORY_LINE_HTML);
-			new_history_line.find('.timestamp').html('[' + new_history_entry['timestamp'] + ']');
-			new_history_line.find('.caster').html(new_history_entry['caster']);
-			new_history_line.find('.spell').html('{' + new_history_entry['spell'] + '}');
-			new_history_line.find('.target').html(new_history_entry['target']);
-			match_history_container.append(new_history_line);
-			if(match_history_container.find('.line').length > HISTORY_LIMIT) {
-				match_history_container.find('.line').first().remove();
-			}
+			refreshCombatLog();
 
 			score_change = calcRatingChange(winner['realtime_rating'], loser['realtime_rating'], 1)
 			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
@@ -372,7 +376,7 @@
 
 			$.post('/rankings/saveRankings', {'rankings': rankings}, function(response) {
 				// REDIS_LAST_SYNCED = Date.now();
-				$.post('/red/saveMatchUpdates', {'rankings': rankings}, function(response2) {
+				$.post('/red/saveMatchUpdates', {'rankings': rankings, 'combat_log': combat_log}, function(response2) {
 					refreshRankings();
 				});
 			});

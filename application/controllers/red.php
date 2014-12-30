@@ -23,6 +23,8 @@ class Red extends MY_Controller {
 		if($this->redis == null) { return; }
 		$this->redis->flushAll();
 		$this->redis->zadd('pongu_ts_players', microtime(true), json_encode($this->input->post('rankings')));
+		$this->redis->zadd('pongu_ts_combat_log', microtime(true), json_encode($this->input->post('combat_log')));
+		print_r($this->input->post('combat_log'));
 		// $this->redis->zadd('pongu_ts_players', microtime(true), 'wtf');
 		// $this->redis->set(microtime(true), 'wtf');
 		// $this->addGoog();
@@ -31,14 +33,20 @@ class Red extends MY_Controller {
 	public function getMatchUpdates() {
 		if($this->redis == null) { return; }
 
-		$products = $this->redis->zrangebyscore(
+		$rankings = $this->redis->zrangebyscore(
 			'pongu_ts_players',
 			$this->input->post('redis_last_synced'),
 			'+inf',
 			array('withscores' => true)
 		);
+		$combat_log = $this->redis->zrangebyscore(
+			'pongu_ts_combat_log',
+			$this->input->post('redis_last_synced'),
+			'+inf',
+			array('withscores' => true)
+		);
 
-		echo json_encode(array(microtime(true), $products));
+		echo json_encode(array(microtime(true), $rankings, $combat_log));
 	}
 
 
