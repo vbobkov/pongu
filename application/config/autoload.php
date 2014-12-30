@@ -111,6 +111,7 @@ $autoload['language'] = array();
 
 $autoload['model'] = array();
 
+require_once 'phar://predis/predis_0.8.4.phar'; // predis
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

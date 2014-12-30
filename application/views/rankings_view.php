@@ -19,6 +19,29 @@
 		<span class="cell"><label for="p2">P2 win</label><input type="radio" name="winner" id="p2"></span>
 	</div>
 	<button class="add">Add</button>
+	<div class="header history-header">Combat Log</div>
+	<div class="history">
+		<!--
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		<div class="line"><span class="timestamp">[2015-01-01 13:37:00]</span><span class="caster">Demolition Man</span><span class="spell">{Slam of Explodification}</span><span class="target">Italian Stallion</span></div>
+		-->
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -39,6 +62,38 @@
 			<div class="col realtime_rating"></div>\
 			<div class="col change"></div>\
 		</div>';
+	var HISTORY_LINE_HTML = '<div class="line"><span class="timestamp"></span><span class="caster"></span><span class="spell"></span><span class="target"></span></div>';
+	var T3H_FINISHERS = {
+		0: 'Slam of Explodification',
+		1: 'Topspin of Destruction',
+		2: 'Backspin of Evil',
+		3: 'Serve of Annihilation',
+		4: 'Slice of Dismemberment',
+		5: 'Block of Bludgeoning',
+		6: 'Corner Shot of Death',
+		7: 'Edge Shot of Pulverization',
+		8: 'Explodifying Slam',
+		9: 'Terrifying Topspin',
+		10: 'Diabolical Backspin'
+	};
+	var T3H_PLAYER_FINISHERS = {
+		1: [0,1,2,3,6,7,8,9,10],
+		2: [0,1,3,6,7],
+		3: [2,3,6,7,10],
+		4: [2,3,4,6,7,10],
+		5: [3,5,6,7],
+		6: [0,1,6,8,9],
+		7: [3,5,6,7],
+		8: [1,6,7,9],
+		9: [0,1,2,4,8,9],
+		10: [0,1,8],
+		11: [1,2,5,7],
+		12: [0,1,3,8,9]
+	};
+	var HISTORY_LIMIT = 18;
+	var REDIS_LAST_SYNCED = Date.now() / 1000;
+	var REDIS_PINGER;
+	var match_history = [];
 	var rankings;
 
 
@@ -101,36 +156,41 @@
 		return changes;
 	}
 
-	function sortByName(a, b) {
-		if(a == b) {
-			return 0;
-		}
-		else if(a < b) {
-			return -1;
-		}
-		else {
-			return 1;
-		}
+
+
+	function checkRedisForNewRankings() {
+		$.post('/red/getMatchUpdates', {'redis_last_synced': REDIS_LAST_SYNCED}, function(response) {
+			var redis_response = JSON.parse(response);
+			console.log(REDIS_LAST_SYNCED);
+			console.log(redis_response);
+			if(redis_response.length > 0) {
+				REDIS_LAST_SYNCED = redis_response[0];
+			}
+			if(redis_response.length > 1 && redis_response[1].length > 0) {
+				var new_rankings = JSON.parse(redis_response[1][0][0]);
+				rankings = new_rankings;
+				refreshRankings();
+			}
+		});
 	}
 
-	function sortByRatingDescending(a, b) {
-		result = parseInt(a['rating']) - parseInt(b['rating']);
-		if(result == 0) {
-			return sortByName(a['fname'] + ' ' + a['lname'], b['fname'] + ' ' + b['lname']);
-		}
-		else {
-			return result;
-		}
+	function convertDateToYMDHMS(d) {
+		return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-') + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2);
 	}
 
-	function sortByRealtimeRatingDescending(a, b) {
-		result = parseInt(b['realtime_rating']) - parseInt(a['realtime_rating']);
-		if(result == 0) {
-			return sortByName(a['fname'] + ' ' + a['lname'], b['fname'] + ' ' + b['lname']);
+	function populateSelectBox(select_element, options, beginning, end) {
+		if(typeof beginning === 'undefined') {
+			beginning = '';
 		}
-		else {
-			return result;
+		if(typeof end === 'undefined') {
+			end = '';
 		}
+		sites_select = beginning;
+		$.each(options, function(key, value) {
+			sites_select += '<option value="' + key + '">' + value + '</option>';
+		});
+		sites_select += end;
+		select_element.html(sites_select);
 	}
 
 	function refreshRankings() {
@@ -175,19 +235,36 @@
 		});
 	}
 
-	function populateSelectBox(select_element, options, beginning, end) {
-		if(typeof beginning === 'undefined') {
-			beginning = '';
+	function sortByName(a, b) {
+		if(a == b) {
+			return 0;
 		}
-		if(typeof end === 'undefined') {
-			end = '';
+		else if(a < b) {
+			return -1;
 		}
-		sites_select = beginning;
-		$.each(options, function(key, value) {
-			sites_select += '<option value="' + key + '">' + value + '</option>';
-		});
-		sites_select += end;
-		select_element.html(sites_select);
+		else {
+			return 1;
+		}
+	}
+
+	function sortByRatingDescending(a, b) {
+		result = parseInt(a['rating']) - parseInt(b['rating']);
+		if(result == 0) {
+			return sortByName(a['fname'] + ' ' + a['lname'], b['fname'] + ' ' + b['lname']);
+		}
+		else {
+			return result;
+		}
+	}
+
+	function sortByRealtimeRatingDescending(a, b) {
+		result = parseInt(b['realtime_rating']) - parseInt(a['realtime_rating']);
+		if(result == 0) {
+			return sortByName(a['fname'] + ' ' + a['lname'], b['fname'] + ' ' + b['lname']);
+		}
+		else {
+			return result;
+		}
 	}
 
 	// modified version of:
@@ -216,6 +293,7 @@
 	}
 
 
+
 	$(document).ready(function() {
 		$.post('/rankings/getRankings', function(response) {
 			rankings = JSON.parse(response);
@@ -226,6 +304,10 @@
 
 			player_names = {};
 			refreshRankings();
+			clearInterval(REDIS_PINGER);
+			REDIS_PINGER = setInterval(function() {
+				checkRedisForNewRankings();
+			}, 5000);
 
 			populateSelectBox($('#match .p1_selectbox'), player_names);
 			// sortSelectBoxAlphabetically($('#match .p1_selectbox'));
@@ -262,12 +344,37 @@
 					loser = player;
 				}
 			});
+			var new_history_entry = {
+				'id': -1,
+				'timestamp': convertDateToYMDHMS(new Date()),
+				'caster': winner['nickname'],
+				'spell': T3H_FINISHERS[T3H_PLAYER_FINISHERS[winner['id']][Math.floor(Math.random() * T3H_PLAYER_FINISHERS[winner['id']].length)]],
+				'target': loser['nickname']
+			};
+			match_history.push(new_history_entry);
+			if(match_history.length > HISTORY_LIMIT) {
+				match_history.shift();
+			}
+			var match_history_container = $('#match .history');
+			var new_history_line = $(HISTORY_LINE_HTML);
+			new_history_line.find('.timestamp').html('[' + new_history_entry['timestamp'] + ']');
+			new_history_line.find('.caster').html(new_history_entry['caster']);
+			new_history_line.find('.spell').html('{' + new_history_entry['spell'] + '}');
+			new_history_line.find('.target').html(new_history_entry['target']);
+			match_history_container.append(new_history_line);
+			if(match_history_container.find('.line').length > HISTORY_LIMIT) {
+				match_history_container.find('.line').first().remove();
+			}
 
 			score_change = calcRatingChange(winner['realtime_rating'], loser['realtime_rating'], 1)
 			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
+
 			$.post('/rankings/saveRankings', {'rankings': rankings}, function(response) {
-				refreshRankings();
+				// REDIS_LAST_SYNCED = Date.now();
+				$.post('/red/saveMatchUpdates', {'rankings': rankings}, function(response2) {
+					refreshRankings();
+				});
 			});
 		});
 	});

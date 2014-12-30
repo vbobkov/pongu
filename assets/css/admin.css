@@ -306,6 +306,7 @@ textarea {
 	position: fixed;
 	right: 1em;
 	top: 3em;
+	width: 40em;
 	z-index: 1337455;
 
 	box-shadow: 0em 0em 1em #ccc;
@@ -326,3 +327,42 @@ textarea {
 	width: 100%;
 }
 
+#match .history-header {
+	margin-top: 1em;
+}
+
+#match .history {
+	background: #000;
+	border: 6px ridge #ccc;
+	height: 20.25em;
+	overflow: auto;
+	padding: 0.25em;
+
+	border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+}
+
+#match .history .timestamp,
+#match .history .caster,
+#match .history .spell,
+#match .history .target {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 75%;
+	margin: 0em 0.25em 0em 0.25em;
+}
+
+#match .history .timestamp {
+	color: #fff;
+}
+
+#match .history .caster,
+#match .history .target {
+	color: #0f0;
+	font-weight: bold;
+}
+
+#match .history .spell {
+	color: #f00;
+	font-style: italic;
+}
