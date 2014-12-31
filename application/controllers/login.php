@@ -197,17 +197,6 @@ class Login extends MY_Controller {
 			CREATE USER 'pongu'@'%' IDENTIFIED BY 'Ub3rL33tH4X';
 			GRANT ALL PRIVILEGES ON pongu.* TO 'pongu'@'%';
 			*/
-			/*
-			DROP TABLE IF EXISTS battles;
-			CREATE TABLE battles (
-				id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-				player_id INT(11),
-				opponent_id INT(11),
-				wins INT(11),
-				losses INT(11),
-				UNIQUE(player_id,opponent_id)
-			);
-			*/
 			$plain_pdo = new PDO('mysql:host=' . $this->db->hostname . ';dbname=' . $this->db->database, $this->db->username, $this->db->password);
 			$plain_pdo->exec("
 				DROP TABLE IF EXISTS users;
@@ -229,6 +218,14 @@ class Login extends MY_Controller {
 				CREATE TABLE rank_epoch (
 					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 					last_sync TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+				);
+				DROP TABLE IF EXISTS battles;
+				CREATE TABLE battles (
+					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+					player_id INT(11),
+					opponent_id INT(11),
+					wins INT(11),
+					UNIQUE(player_id,opponent_id)
 				);
 			");
 			echo 'Nuked the database for great justice.<br />';

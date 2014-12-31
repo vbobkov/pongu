@@ -81,6 +81,48 @@ class Rankings extends MY_Controller {
 		$this->Users_model->importRows('players', 'id', $new_rankings, $column_names, $column_names);
 		$this->Users_model->importRows('rank_epoch', 'id', array($new_rank_epoch), $column_names2, $column_names2);
 	}
+
+	public function getBattles() {
+		echo json_encode(
+			array_merge(
+				$this->Users_model->getFromTable('battles', 'player_id', array('ids' => array($this->input->post('player_id')))),
+				$this->Users_model->getFromTable('battles', 'opponent_id', array('ids' => array($this->input->post('player_id'))))
+			)
+		);
+	}
+
+	public function saveBattles() {
+		if($this->input->post('battle_results') != null) {
+			$battle_results = $this->input->post('battle_results');
+		}
+		else {
+			$battle_results = array();
+		}
+		if(sizeof($battle_results) < 1) {
+			return;
+		}
+
+		$player_ids = array();
+		$existing_battles = array();
+		foreach($battle_results as $result) {
+			$player_ids[] = $result['player_id'];
+		}
+
+		$existing_battles = $this->Users_model->getFromTable('battles', 'player_id', $player_ids);
+		$current_existing_battle;
+		foreach($battle_results as &$result) {
+			foreach($existing_battles as $existing_battle) {
+				if($existing_battle['player_id'] == $result['player_id'] && $existing_battle['opponent_id'] == $result['opponent_id']) {
+					$result['id'] = $existing_battle['id'];
+					$result['wins'] += $existing_battle['wins'];
+				}
+			}
+		}
+
+		print_r($battle_results);
+		$column_names = array('id','player_id','opponent_id','wins');
+		$this->Users_model->importRows('battles', 'id', $battle_results, $column_names, $column_names);
+	}
 }
 
 /* End of file login.php */

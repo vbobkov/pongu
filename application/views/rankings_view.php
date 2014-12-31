@@ -26,6 +26,9 @@
 	<button class="reset-rank-epoch">Reset rank changes</button>
 </div>
 
+<div id="player_stats">
+</div>
+
 <script type="text/javascript">
 	var ELO_FIDE_DIFF_TABLE = [392,375,358,345,327,316,303,291,279,268,257,246,236,226,216,207,198,189,180,171,163,154,146,138,130,122,114,107,99,92,84,77,69,62,54,47,40,33,26,18,11,4,0];
 	var PLAYER_RANKING_HTML = '\
@@ -43,6 +46,33 @@
 			</div>\
 			<div class="col realtime_rating"></div>\
 			<div class="col change"></div>\
+		</div>';
+	var PLAYER_STATS_INTRO_HTML = '\
+		<div class="intro">\
+			<div class="emblem"></div>\
+			<div class="names">\
+				<div class="realname">\
+					<span class="fname"></span>\
+					<span class="lname"></span>\
+				</div>\
+				<div class="nickname"></div>\
+			</div>\
+		</div>';
+	var PLAYER_WIN_LOSS_HTML = '\
+		<div class="player">\
+			<div class="col info">\
+				<input type="hidden" name="player_id">\
+				<div class="realname">\
+					<span class="fname"></span>\
+					<span class="lname"></span>\
+				</div>\
+				<div class="nickname_container">\
+					<div class="nickname_img"></div>\
+					<div class="nickname"></div>\
+				</div>\
+			</div>\
+			<div class="col wins"></div>\
+			<div class="col losses"></div>\
 		</div>';
 	var HISTORY_LINE_HTML = '<div class="line"><span class="timestamp"></span><span class="caster"></span><span class="spell"></span><span class="target"></span></div>';
 	var T3H_DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -247,10 +277,12 @@
 	}
 
 	function sortByName(a, b) {
-		if(a == b) {
+		name1 = a['fname'] + ' ' + a['lname'];
+		name2 = b['fname'] + ' ' + b['lname'];
+		if(name1 == name2) {
 			return 0;
 		}
-		else if(a < b) {
+		else if(name1 < name2) {
 			return -1;
 		}
 		else {
@@ -261,7 +293,7 @@
 	function sortByRatingDescending(a, b) {
 		result = parseInt(b['rating']) - parseInt(a['rating']);
 		if(result == 0) {
-			return sortByName(a['fname'] + ' ' + a['lname'], b['fname'] + ' ' + b['lname']);
+			return sortByName(a, b);
 		}
 		else {
 			return result;
@@ -271,7 +303,7 @@
 	function sortByRealtimeRatingDescending(a, b) {
 		result = parseInt(b['realtime_rating']) - parseInt(a['realtime_rating']);
 		if(result == 0) {
-			return sortByName(a['fname'] + ' ' + a['lname'], b['fname'] + ' ' + b['lname']);
+			return sortByName(a, b);
 		}
 		else {
 			return result;
@@ -350,6 +382,7 @@
 				return false;
 			}
 
+			var battle_results = [];
 			var winner;
 			var loser;
 			$.each(rankings, function(idx, player) {
@@ -359,6 +392,12 @@
 				else if(player['id'] == loser_player_id) {
 					loser = player;
 				}
+			});
+			battle_results.push({
+				'id': -1,
+				'player_id': winner['id'],
+				'opponent_id': loser['id'],
+				'wins': 1
 			});
 			var new_combat_log_entry = {
 				'id': -1,
@@ -378,6 +417,8 @@
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
 
 			saveRankings();
+			$.post('/rankings/saveBattles', {'battle_results': battle_results}, function(response) {
+			});
 		});
 
 		$(document).delegate('#match .reset-rank-epoch', 'click', function(event) {
@@ -387,6 +428,79 @@
 			});
 			refreshRankEpoch();
 			saveRankings();
+		});
+
+		$(document).delegate('#pongu_rankings .players .player .nickname', 'click', function(event) {
+			var player_id = $(this).closest('.player').find('[name="player_id"]').prop('value');
+			var t3h_player;
+			$.each(rankings, function(idx, playa) {
+				if(player_id == playa['id']) {
+					t3h_player = playa;
+				}
+			});
+			$.post('/rankings/getBattles', {'player_id': player_id}, function(response) {
+				var player_battles = JSON.parse(response);
+				var player_stats_window = $('#player_stats')
+
+				player_stats_window.css('display', '');
+				player_stats_window.html('');
+				player_stats_window.css('display', 'block');
+
+				var player_intro = $(PLAYER_STATS_INTRO_HTML);
+				player_intro.find('.emblem').css('background', 'url(/assets/img/player_emblems/[256]' + encodeURIComponent(t3h_player['nickname']) + '.png)');
+				player_intro.find('.nickname').html(t3h_player['nickname']);
+				player_intro.find('.fname').html(t3h_player['fname']);
+				player_intro.find('.lname').html(t3h_player['lname']);
+
+				var wins_and_losses_header = $('\
+					<div class="headers">\
+						<div class="header">Opponent</div>\
+						<div class="header">Wins</div>\
+						<div class="header">Losses</div>\
+					</div>');
+				var wins_and_losses = $('<div class="players"></div>');
+				var player_div;
+				var wins;
+				var losses;
+
+				// sorted_rankings = rankings.slice();
+				// sorted_rankings.sort(sortByName);
+				// $.each(sorted_rankings, function(idx, player) {
+				$.each(rankings, function(idx, player) {
+					if(player['id'] != player_id) {
+						player_div = $(PLAYER_WIN_LOSS_HTML);
+						player_div.find('[name="player_id"]').prop('value', player['id']);
+						player_div.find('.nickname').html(player['nickname']);
+						if(player['nickname'] != '') {
+							player_div.find('.nickname_img').css('background', 'url(/assets/img/player_emblems/[32]' + encodeURIComponent(player['nickname']) + '.png)');
+						}
+						player_div.find('.fname').html(player['fname']);
+						player_div.find('.lname').html(player['lname']);
+						wins = 0;
+						losses = 0;
+						$.each(player_battles, function(idx3, battle) {
+							if(battle['opponent_id'] == player['id']) {
+								wins = battle['wins'];
+							}
+							else if(battle['player_id'] == player['id']) {
+								losses = battle['wins'];
+							}
+						});
+						player_div.find('.wins').html(wins);
+						player_div.find('.losses').html(losses);
+						wins_and_losses.append(player_div);
+					}
+				});
+				player_stats_window.append(player_intro);
+				player_stats_window.append(wins_and_losses_header);
+				player_stats_window.append(wins_and_losses);
+			});
+		});
+
+		$(document).delegate('body', 'click', function(event) {
+			if($(event.target).closest('#player_stats').length < 1) {
+				$('#player_stats').css('display', '');
+			}
 		});
 	});
 </script>
