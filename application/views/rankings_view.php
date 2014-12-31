@@ -497,7 +497,7 @@
 			});
 		});
 
-		$(document).delegate('body', 'click', function(event) {
+		$(document).delegate('html', 'click', function(event) {
 			if($(event.target).closest('#player_stats').length < 1) {
 				$('#player_stats').css('display', '');
 			}
