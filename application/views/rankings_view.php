@@ -447,67 +447,68 @@
 				player_stats_window.css('display', '');
 				player_stats_window.html('');
 				player_stats_window.css('display', 'block');
-				var window_width = 0;
-				player_stats_window.css('width', window_width);
-				var window_open_animation = setInterval(function() {
-					if(parseInt(player_stats_window.css('width')) <= 1000) {
-						player_stats_window.css('width', window_width);
-						window_width += 25;
-					}
-					else {
-						player_stats_window.css('width', '');
-						clearInterval(window_open_animation);
 
-						var player_intro = $(PLAYER_STATS_INTRO_HTML);
-						player_intro.find('.emblem').css('background', 'url(/assets/img/player_emblems/[256]' + encodeURIComponent(t3h_player['nickname']) + '.png)');
-						player_intro.find('.nickname').html(t3h_player['nickname']);
-						player_intro.find('.fname').html(t3h_player['fname']);
-						player_intro.find('.lname').html(t3h_player['lname']);
+				var player_intro = $(PLAYER_STATS_INTRO_HTML);
+				player_intro.find('.emblem').css('background', 'url(/assets/img/player_emblems/[256]' + encodeURIComponent(t3h_player['nickname']) + '.png)');
+				player_intro.find('.nickname').html(t3h_player['nickname']);
+				player_intro.find('.fname').html(t3h_player['fname']);
+				player_intro.find('.lname').html(t3h_player['lname']);
 
-						var wins_and_losses_header = $('\
-							<div class="headers">\
-								<div class="header">Opponent</div>\
-								<div class="header">Wins</div>\
-								<div class="header">Losses</div>\
-							</div>');
-						var wins_and_losses = $('<div class="players"></div>');
-						var player_div;
-						var wins;
-						var losses;
+				var wins_and_losses_header = $('\
+					<div class="headers">\
+						<div class="header">Opponent</div>\
+						<div class="header">Wins</div>\
+						<div class="header">Losses</div>\
+					</div>');
+				var wins_and_losses = $('<div class="players"></div>');
+				var player_div;
+				var wins;
+				var losses;
 
-						// sorted_rankings = rankings.slice();
-						// sorted_rankings.sort(sortByName);
-						// $.each(sorted_rankings, function(idx, player) {
-						$.each(rankings, function(idx, player) {
-							if(player['id'] != player_id) {
-								player_div = $(PLAYER_WIN_LOSS_HTML);
-								player_div.find('[name="player_id"]').prop('value', player['id']);
-								player_div.find('.nickname').html(player['nickname']);
-								if(player['nickname'] != '') {
-									player_div.find('.nickname_img').css('background', 'url(/assets/img/player_emblems/[32]' + encodeURIComponent(player['nickname']) + '.png)');
-								}
-								player_div.find('.fname').html(player['fname']);
-								player_div.find('.lname').html(player['lname']);
-								wins = 0;
-								losses = 0;
-								$.each(player_battles, function(idx3, battle) {
-									if(battle['opponent_id'] == player['id']) {
-										wins = battle['wins'];
-									}
-									else if(battle['player_id'] == player['id']) {
-										losses = battle['wins'];
-									}
-								});
-								player_div.find('.wins').html(wins);
-								player_div.find('.losses').html(losses);
-								wins_and_losses.append(player_div);
+				// sorted_rankings = rankings.slice();
+				// sorted_rankings.sort(sortByName);
+				// $.each(sorted_rankings, function(idx, player) {
+				$.each(rankings, function(idx, player) {
+					if(player['id'] != player_id) {
+						player_div = $(PLAYER_WIN_LOSS_HTML);
+						player_div.find('[name="player_id"]').prop('value', player['id']);
+						player_div.find('.nickname').html(player['nickname']);
+						if(player['nickname'] != '') {
+							player_div.find('.nickname_img').css('background', 'url(/assets/img/player_emblems/[32]' + encodeURIComponent(player['nickname']) + '.png)');
+						}
+						player_div.find('.fname').html(player['fname']);
+						player_div.find('.lname').html(player['lname']);
+						wins = 0;
+						losses = 0;
+						$.each(player_battles, function(idx3, battle) {
+							if(battle['opponent_id'] == player['id']) {
+								wins = battle['wins'];
+							}
+							else if(battle['player_id'] == player['id']) {
+								losses = battle['wins'];
 							}
 						});
-						player_stats_window.append(player_intro);
-						player_stats_window.append(wins_and_losses_header);
-						player_stats_window.append(wins_and_losses);
+						player_div.find('.wins').html(wins);
+						player_div.find('.losses').html(losses);
+						wins_and_losses.append(player_div);
 					}
-				}, 10);
+				});
+				player_stats_window.append(player_intro);
+				player_stats_window.append(wins_and_losses_header);
+				player_stats_window.append(wins_and_losses);
+
+				var anim_param = -1200;
+				player_stats_window.css('left', anim_param);
+				var window_open_animation = setInterval(function() {
+					if(parseInt(player_stats_window.css('left')) <= 150) {
+						player_stats_window.css('left', anim_param);
+						anim_param += 25;
+					}
+					else {
+						player_stats_window.css('left', '');
+						clearInterval(window_open_animation);
+					}
+				}, 5);
 			});
 		});
 
