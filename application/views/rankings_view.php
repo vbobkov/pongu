@@ -222,7 +222,10 @@
 	}
 
 	function refreshRankEpoch() {
-		rank_epoch_date = new Date(rank_epoch['last_sync']);
+		var rd = rank_epoch['last_sync'].split("-");
+		var rank_epoch_date = new Date(from[0], from[1] - 1, from[2].split(' ')[0], from[2].split(' ')[1].split(':')[0], from[2].split(' ')[1].split(':')[1], from[2].split(' ')[1].split(':')[2]);
+		rank_epoch_date.setHours(rank_epoch_date.getHours() - Math.round(rank_epoch_date.getTimezoneOffset() / 60));
+
 		$('#match .rank-changes .rank-changes-timestamp').html(T3H_DAYS[rank_epoch_date.getDay()] + ', ' + T3H_MONTHS[rank_epoch_date.getMonth()] + ' ' + rank_epoch_date.getDate() + ', ' + rank_epoch_date.getFullYear());
 		// $('#match .rank-changes .rank-changes-timestamp').html(rank_epoch_date.toString());
 	}
