@@ -115,9 +115,8 @@
 
 	function calcRatingChange(r1, r2, score) {
 		var k = 40;
-		var diff = 0;
 		var change = 0;
-		var diff = r2 - r1;
+		var diff = r1 - r2;
 
 		if(Math.abs(diff) > 400) {
 			if(r1 > r2) {
