@@ -189,7 +189,7 @@
 	}
 
 	function convertDateToYMDHMS(d) {
-		return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-') + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2);
+		return [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)].join('-') + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2);
 	}
 
 	function populateSelectBox(select_element, options, beginning, end) {
