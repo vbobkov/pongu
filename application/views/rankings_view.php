@@ -188,7 +188,7 @@
 						combat_log = [];
 					}
 					combat_log = combat_log.concat(new_entries);
-					if(combat_log.length > HISTORY_LIMIT) {
+					while(combat_log.length > HISTORY_LIMIT) {
 						combat_log.shift();
 					}
 					refreshCombatLog();
