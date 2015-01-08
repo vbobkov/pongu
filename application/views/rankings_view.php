@@ -198,6 +198,7 @@
 				saveRankings();
 				$.post('/rankings/saveBattles', {'battle_results': battle_results}, function(response) {
 				});
+				new_combat_log_entries = [];
 				update_rankings = false;
 			}
 			else {
