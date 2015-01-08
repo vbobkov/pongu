@@ -109,6 +109,7 @@
 	var REDIS_PINGER;
 	var battle_results = [];
 	var combat_log = [];
+	var new_combat_log_entries = [];
 	var rankings;
 	var rank_epoch;
 	var update_rankings = false;
@@ -173,10 +174,7 @@
 
 
 
-	function checkRedisForNewRankings(new_combat_log_entries) {
-		if(typeof new_combat_log_entries === 'undefined') {
-			new_combat_log_entries = [];
-		}
+	function checkRedisForNewRankings() {
 		$.post('/red/getMatchUpdates', {'redis_last_synced': REDIS_LAST_SYNCED}, function(response) {
 			if(response != null && response != '') {
 				var redis_response = JSON.parse(response);
@@ -435,6 +433,7 @@
 			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
 
+			new_combat_log_entries = [new_combat_log_entry];
 			update_rankings = true;
 			// checkRedisForNewRankings([new_combat_log_entry], battle_results, true);
 			/*
