@@ -184,12 +184,14 @@
 				if(redis_response.length > 2 && redis_response[1].length > 0) {
 					rankings = JSON.parse(redis_response[1][0][0]);
 					combat_log = JSON.parse(redis_response[2][0][0]);
-					// if(typeof combat_log !== 'object') {
-					// 	combat_log = [];
-					// }
-					combat_log = combat_log.concat(new_combat_log_entries);
-					while(combat_log.length > HISTORY_LIMIT) {
-						combat_log.shift();
+					if(typeof combat_log !== 'object') {
+						combat_log = [];
+					}
+					if(new_combat_log_entries.length > 0) {
+						combat_log = combat_log.concat(new_combat_log_entries);
+						while(combat_log.length > HISTORY_LIMIT) {
+							combat_log.shift();
+						}
 					}
 				}
 			}
