@@ -171,9 +171,12 @@
 
 
 
-	function checkRedisForNewRankings(new_entries) {
-		if(typeof new_entries === 'undefined') {
-			new_entries = [];
+	function checkRedisForNewRankings(new_combat_log_entries, battle_results, update_rankings) {
+		if(typeof new_combat_log_entries === 'undefined') {
+			new_combat_log_entries = [];
+		}
+		if(typeof update_rankings === 'undefined') {
+			update_rankings = false;
 		}
 		$.post('/red/getMatchUpdates', {'redis_last_synced': REDIS_LAST_SYNCED}, function(response) {
 			if(response != null && response != '') {
@@ -187,13 +190,20 @@
 					if(typeof combat_log !== 'object') {
 						combat_log = [];
 					}
-					combat_log = combat_log.concat(new_entries);
+					combat_log = combat_log.concat(new_combat_log_entries);
 					while(combat_log.length > HISTORY_LIMIT) {
 						combat_log.shift();
 					}
-					refreshCombatLog();
-					refreshRankings();
 				}
+			}
+			refreshCombatLog();
+			if(update_rankings) {
+				saveRankings();
+				$.post('/rankings/saveBattles', {'battle_results': battle_results}, function(response) {
+				});
+			}
+			else {
+				refreshRankings();
 			}
 		});
 	}
@@ -421,7 +431,11 @@
 				'target': loser['nickname']
 			};
 
-			checkRedisForNewRankings([new_combat_log_entry]);
+			score_change = calcRatingChange(winner['realtime_rating'], loser['realtime_rating'], 1)
+			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
+			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
+
+			checkRedisForNewRankings([new_combat_log_entry], battle_results, true);
 			/*
 			combat_log.push(new_combat_log_entry);
 			if(combat_log.length > HISTORY_LIMIT) {
@@ -429,14 +443,6 @@
 			}
 			refreshCombatLog();
 			*/
-
-			score_change = calcRatingChange(winner['realtime_rating'], loser['realtime_rating'], 1)
-			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
-			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
-
-			saveRankings();
-			$.post('/rankings/saveBattles', {'battle_results': battle_results}, function(response) {
-			});
 		});
 
 		$(document).delegate('#match .reset-rank-epoch', 'click', function(event) {
