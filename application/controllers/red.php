@@ -21,10 +21,21 @@ class Red extends MY_Controller {
 
 	public function saveMatchUpdates() {
 		if($this->redis == null) { return; }
+
+		$rankings = json_encode($this->input->post('rankings'));
+		$combat_log = $this->input->post('combat_log');
+		if(!is_array($combat_log) || sizeof($combat_log) < 1) {
+			$combat_log = '[]';
+		}
+		else {
+			$combat_log = json_encode($combat_log);
+		}
+
+
 		$this->redis->flushAll();
-		$this->redis->zadd('pongu_ts_players', microtime(true), json_encode($this->input->post('rankings')));
-		$this->redis->zadd('pongu_ts_combat_log', microtime(true), json_encode($this->input->post('combat_log')));
-		print_r($this->input->post('combat_log'));
+		$this->redis->zadd('pongu_ts_players', microtime(true), $rankings);
+		$this->redis->zadd('pongu_ts_combat_log', microtime(true), $combat_log);
+		// print_r($this->input->post('combat_log'));
 		// $this->redis->zadd('pongu_ts_players', microtime(true), 'wtf');
 		// $this->redis->set(microtime(true), 'wtf');
 		// $this->addGoog();
