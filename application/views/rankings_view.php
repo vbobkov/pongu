@@ -185,6 +185,9 @@
 					rankings = JSON.parse(redis_response[1][0][0]);
 					combat_log = JSON.parse(redis_response[2][0][0]);
 					combat_log = combat_log.concat(new_entries);
+					if(combat_log.length > HISTORY_LIMIT) {
+						combat_log.shift();
+					}
 					refreshCombatLog();
 					refreshRankings();
 				}
