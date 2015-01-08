@@ -107,9 +107,11 @@
 	var HISTORY_LIMIT = 18;
 	var REDIS_LAST_SYNCED = Date.now() / 1000;
 	var REDIS_PINGER;
+	var battle_results = [];
 	var combat_log = [];
 	var rankings;
 	var rank_epoch;
+	var update_rankings = false;
 
 
 
@@ -171,12 +173,9 @@
 
 
 
-	function checkRedisForNewRankings(new_combat_log_entries, battle_results, update_rankings) {
+	function checkRedisForNewRankings(new_combat_log_entries) {
 		if(typeof new_combat_log_entries === 'undefined') {
 			new_combat_log_entries = [];
-		}
-		if(typeof update_rankings === 'undefined') {
-			update_rankings = false;
 		}
 		$.post('/red/getMatchUpdates', {'redis_last_synced': REDIS_LAST_SYNCED}, function(response) {
 			if(response != null && response != '') {
@@ -201,6 +200,7 @@
 				saveRankings();
 				$.post('/rankings/saveBattles', {'battle_results': battle_results}, function(response) {
 				});
+				update_rankings = false;
 			}
 			else {
 				refreshRankings();
@@ -406,7 +406,7 @@
 				return false;
 			}
 
-			var battle_results = [];
+			// var battle_results = [];
 			var winner;
 			var loser;
 			$.each(rankings, function(idx, player) {
@@ -435,7 +435,8 @@
 			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
 
-			checkRedisForNewRankings([new_combat_log_entry], battle_results, true);
+			update_rankings = true;
+			// checkRedisForNewRankings([new_combat_log_entry], battle_results, true);
 			/*
 			combat_log.push(new_combat_log_entry);
 			if(combat_log.length > HISTORY_LIMIT) {
