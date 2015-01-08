@@ -109,7 +109,6 @@
 	var REDIS_PINGER;
 	var battle_results = [];
 	var combat_log = [];
-	var new_combat_log_entries = [];
 	var rankings;
 	var rank_epoch;
 	var update_rankings = false;
@@ -187,17 +186,10 @@
 					if(typeof combat_log !== 'object') {
 						combat_log = [];
 					}
-					if(new_combat_log_entries.length > 0) {
-						combat_log = combat_log.concat(new_combat_log_entries);
-						while(combat_log.length > HISTORY_LIMIT) {
-							combat_log.shift();
-						}
-					}
 				}
 			}
 			refreshCombatLog();
 			if(update_rankings) {
-				new_combat_log_entries = [];
 				update_rankings = false;
 				saveRankings();
 				$.post('/rankings/saveBattles', {'battle_results': battle_results}, function(response) {
@@ -436,16 +428,12 @@
 			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
 
-			new_combat_log_entries = [new_combat_log_entry];
-			update_rankings = true;
-			// checkRedisForNewRankings([new_combat_log_entry], battle_results, true);
-			/*
 			combat_log.push(new_combat_log_entry);
 			if(combat_log.length > HISTORY_LIMIT) {
 				combat_log.shift();
 			}
-			refreshCombatLog();
-			*/
+			update_rankings = true;
+			// refreshCombatLog();
 		});
 
 		$(document).delegate('#match .reset-rank-epoch', 'click', function(event) {
