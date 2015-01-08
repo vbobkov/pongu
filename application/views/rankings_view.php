@@ -221,6 +221,9 @@
 	}
 
 	function refreshCombatLog() {
+		while(combat_log.length > HISTORY_LIMIT) {
+			combat_log.shift();
+		}
 		var combat_log_container = $('#match .history');
 		combat_log_container.html('');
 		var new_combat_log_line;
@@ -429,9 +432,6 @@
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
 
 			combat_log.push(new_combat_log_entry);
-			while(combat_log.length > HISTORY_LIMIT) {
-				combat_log.shift();
-			}
 			update_rankings = true;
 			// refreshCombatLog();
 		});
