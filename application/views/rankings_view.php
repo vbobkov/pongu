@@ -184,7 +184,7 @@
 				if(redis_response.length > 2 && redis_response[1].length > 0) {
 					rankings = JSON.parse(redis_response[1][0][0]);
 					combat_log = JSON.parse(redis_response[2][0][0]);
-					if(typeof combat_log === 'undefined' || combat_log.length < 1) {
+					if(typeof combat_log !== 'object') {
 						combat_log = [];
 					}
 					combat_log = combat_log.concat(new_entries);
