@@ -171,7 +171,10 @@
 
 
 
-	function checkRedisForNewRankings() {
+	function checkRedisForNewRankings(new_entries) {
+		if(typeof new_entries === 'undefined') {
+			new_entries = [];
+		}
 		$.post('/red/getMatchUpdates', {'redis_last_synced': REDIS_LAST_SYNCED}, function(response) {
 			if(response != null && response != '') {
 				var redis_response = JSON.parse(response);
@@ -181,6 +184,7 @@
 				if(redis_response.length > 2 && redis_response[1].length > 0) {
 					rankings = JSON.parse(redis_response[1][0][0]);
 					combat_log = JSON.parse(redis_response[2][0][0]);
+					combat_log = combat_log.concat(new_entries);
 					refreshCombatLog();
 					refreshRankings();
 				}
@@ -410,11 +414,15 @@
 				'spell': T3H_FINISHERS[T3H_PLAYER_FINISHERS[winner['id']][Math.floor(Math.random() * T3H_PLAYER_FINISHERS[winner['id']].length)]],
 				'target': loser['nickname']
 			};
+
+			checkRedisForNewRankings(new_combat_log_entry);
+			/*
 			combat_log.push(new_combat_log_entry);
 			if(combat_log.length > HISTORY_LIMIT) {
 				combat_log.shift();
 			}
 			refreshCombatLog();
+			*/
 
 			score_change = calcRatingChange(winner['realtime_rating'], loser['realtime_rating'], 1)
 			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
