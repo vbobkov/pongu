@@ -402,7 +402,7 @@
 				return false;
 			}
 
-			// var battle_results = [];
+			battle_results = [];
 			var winner;
 			var loser;
 			$.each(rankings, function(idx, player) {
