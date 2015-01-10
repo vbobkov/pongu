@@ -236,7 +236,7 @@
 		var new_combat_log_line;
 		$.each(combat_log, function(idx, entry) {
 			new_combat_log_line = $(HISTORY_LINE_HTML);
-			new_combat_log_line.find('.timestamp').html('[' + entry['timestamp'] + ']');
+			new_combat_log_line.find('.timestamp').html('[' + entry['time'] + ']');
 			new_combat_log_line.find('.caster').html(entry['caster']);
 			new_combat_log_line.find('.spell').html('{' + entry['spell'] + '}');
 			new_combat_log_line.find('.target').html(entry['target']);
