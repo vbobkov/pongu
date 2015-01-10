@@ -428,7 +428,7 @@
 			});
 			var new_combat_log_entry = {
 				'id': -1,
-				'timestamp': convertDateToYMDHMS(new Date()),
+				'time': convertDateToYMDHMS(new Date()),
 				'caster': winner['nickname'],
 				'spell': T3H_FINISHERS[T3H_PLAYER_FINISHERS[winner['id']][Math.floor(Math.random() * T3H_PLAYER_FINISHERS[winner['id']].length)]],
 				'target': loser['nickname']
