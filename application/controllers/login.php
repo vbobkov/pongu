@@ -227,6 +227,14 @@ class Login extends MY_Controller {
 					wins INT(11),
 					UNIQUE(player_id,opponent_id)
 				);
+				DROP TABLE IF EXISTS combat_log;
+				CREATE TABLE combat_log (
+					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+					caster VARCHAR(255),
+					spell VARCHAR(255),
+					target VARCHAR(255),
+					time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+				);
 			");
 			echo 'Nuked the database for great justice.<br />';
 

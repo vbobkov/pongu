@@ -91,6 +91,10 @@ class Rankings extends MY_Controller {
 		);
 	}
 
+	public function getCombatLog() {
+		echo json_encode($this->Users_model->getFromTable('combat_log', 'id'));
+	}
+
 	public function saveBattles() {
 		if($this->input->post('battle_results') != null) {
 			$battle_results = $this->input->post('battle_results');
@@ -122,6 +126,26 @@ class Rankings extends MY_Controller {
 		print_r($battle_results);
 		$column_names = array('id','player_id','opponent_id','wins');
 		$this->Users_model->importRows('battles', 'id', $battle_results, $column_names, $column_names);
+	}
+
+	public function saveCombatLog() {
+		$COMBAT_LOG_LIMIT = 18;
+		$combat_log = $this->input->post('combat_log');
+		if(is_array($combat_log) && sizeof($combat_log) > 0) {
+			$column_names = array_keys($combat_log[0]);
+			$this->Users_model->importRows('combat_log', 'id', $combat_log, $column_names, $column_names);
+
+			$updated_combat_log = $this->Users_model->getFromTable('combat_log', 'id');
+			/*
+			if(sizeof($updated_combat_log) > $COMBAT_LOG_LIMIT) {
+				$combat_log_entries_to_delete = array();
+				for($i = 0; $i < sizeof($updated_combat_log) - $COMBAT_LOG_LIMIT; $i++) {
+					$combat_log_entries_to_delete[] = $updated_combat_log[$i]['id'];
+				}
+				$this->Users_model->deleteFromTable('combat_log', 'id', array('ids' => $combat_log_entries_to_delete));
+			}
+			*/
+		}
 	}
 }
 

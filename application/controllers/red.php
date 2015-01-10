@@ -23,6 +23,7 @@ class Red extends MY_Controller {
 		if($this->redis == null) { return; }
 
 		$rankings = json_encode($this->input->post('rankings'));
+		/*
 		$combat_log = $this->input->post('combat_log');
 		if(!is_array($combat_log) || sizeof($combat_log) < 1) {
 			$combat_log = '[]';
@@ -30,15 +31,12 @@ class Red extends MY_Controller {
 		else {
 			$combat_log = json_encode($combat_log);
 		}
+		*/
 
 
 		$this->redis->flushAll();
 		$this->redis->zadd('pongu_ts_players', microtime(true), $rankings);
-		$this->redis->zadd('pongu_ts_combat_log', microtime(true), $combat_log);
-		// print_r($this->input->post('combat_log'));
-		// $this->redis->zadd('pongu_ts_players', microtime(true), 'wtf');
-		// $this->redis->set(microtime(true), 'wtf');
-		// $this->addGoog();
+		// $this->redis->zadd('pongu_ts_combat_log', microtime(true), $combat_log);
 	}
 
 	public function getMatchUpdates() {
@@ -50,14 +48,17 @@ class Red extends MY_Controller {
 			'+inf',
 			array('withscores' => true)
 		);
+		/*
 		$combat_log = $this->redis->zrangebyscore(
 			'pongu_ts_combat_log',
 			$this->input->post('redis_last_synced'),
 			'+inf',
 			array('withscores' => true)
 		);
+		*/
 
-		echo json_encode(array(microtime(true), $rankings, $combat_log));
+		// echo json_encode(array(microtime(true), $rankings, $combat_log));
+		echo json_encode(array(microtime(true), $rankings));
 	}
 
 

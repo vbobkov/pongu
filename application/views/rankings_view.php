@@ -182,22 +182,29 @@
 				}
 				if(redis_response.length > 2 && redis_response[1].length > 0) {
 					rankings = JSON.parse(redis_response[1][0][0]);
+					/*
 					combat_log = JSON.parse(redis_response[2][0][0]);
 					if(typeof combat_log !== 'object') {
 						combat_log = [];
 					}
+					*/
 				}
 			}
-			refreshCombatLog();
 			if(update_rankings) {
 				update_rankings = false;
 				saveRankings();
 				$.post('/rankings/saveBattles', {'battle_results': battle_results}, function(response) {
 				});
+				$.post('/rankings/saveCombatLog', {'combat_log': combat_log}, function(response) {
+				});
 			}
 			else {
 				refreshRankings();
+				$.post('/rankings/getCombatLog', function(response2) {
+					combat_log = JSON.parse(response2);
+				});
 			}
+			refreshCombatLog();
 		});
 	}
 
@@ -290,7 +297,7 @@
 
 	function saveRankings() {
 		$.post('/rankings/saveRankings', {'rankings': rankings, 'rank_epoch': rank_epoch}, function(response) {
-			$.post('/red/saveMatchUpdates', {'rankings': rankings, 'combat_log': combat_log}, function(response2) {
+			$.post('/red/saveMatchUpdates', {'rankings': rankings}, function(response2) {
 				refreshRankings();
 			});
 		});
