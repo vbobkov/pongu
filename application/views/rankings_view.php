@@ -180,7 +180,7 @@
 				if(redis_response.length > 0) {
 					REDIS_LAST_SYNCED = redis_response[0];
 				}
-				if(redis_response.length > 2 && redis_response[1].length > 0) {
+				if(redis_response.length > 1 && redis_response[1].length > 0) {
 					rankings = JSON.parse(redis_response[1][0][0]);
 					/*
 					combat_log = JSON.parse(redis_response[2][0][0]);
