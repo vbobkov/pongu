@@ -92,7 +92,12 @@ class Rankings extends MY_Controller {
 	}
 
 	public function getCombatLog() {
-		echo json_encode($this->Users_model->getFromTable('combat_log', 'id'));
+		// echo json_encode($this->Users_model->getFromTable('combat_log', 'id'));
+		// echo json_encode($this->Users_model->getFromTable('combat_log', 'id', array(), " ORDER BY id DESC LIMIT 18"));
+
+		$combat_log = $this->Users_model->getFromTable('combat_log', 'id', array(), " ORDER BY id DESC LIMIT 18");
+		usort($combat_log, array($this, "sortByID"));
+		echo json_encode($combat_log);
 	}
 
 	public function saveBattles() {
@@ -146,6 +151,10 @@ class Rankings extends MY_Controller {
 			}
 			*/
 		}
+	}
+
+	private function sortByID($e1, $e2) {
+		return $e1['id'] - $e2['id'];
 	}
 }
 
