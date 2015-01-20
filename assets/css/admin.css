@@ -372,10 +372,16 @@ textarea {
 }
 
 #match .history {
+	margin: 0em 0.25em 0em 0.25em;
+}
+
+#match .history .timestamp,
+#match .history .caster,
+#match .history .spell,
+#match .history .target {
 	font-family: "Courier New", Courier, monospace;
 	font-size: 75%;
 	font-weight: bold;
-	margin: 0em 0.25em 0em 0.25em;
 }
 
 #match .history .timestamp {
