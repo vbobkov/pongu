@@ -394,8 +394,9 @@ textarea {
 }
 
 #match .history .spell {
-	color: #f00;
+	color: #0ff;
 	font-style: italic;
+	margin: 0em 0.25em 0em 0.25em;
 }
 
 #match .rank-changes {
