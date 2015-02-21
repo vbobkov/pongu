@@ -388,9 +388,9 @@
 			}, 5000);
 
 			populateSelectBox($('#match .p1_selectbox'), player_names);
-			// sortSelectBoxAlphabetically($('#match .p1_selectbox'));
+			sortSelectBoxAlphabetically($('#match .p1_selectbox'));
 			populateSelectBox($('#match .p2_selectbox'), player_names);
-			// sortSelectBoxAlphabetically($('#match .p2_selectbox'));
+			sortSelectBoxAlphabetically($('#match .p2_selectbox'));
 		});
 
 
