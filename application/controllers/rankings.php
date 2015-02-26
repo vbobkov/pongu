@@ -165,6 +165,7 @@ class Rankings extends MY_Controller {
 	public function undoLastMatch() {
 		// DROP TABLE IF EXISTS history;CREATE TABLE history (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,winner_id INT(11),loser_id INT(11),winner_old_rating INT(11),loser_old_rating INT(11),rating_change INT(11),time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 		// INSERT INTO history(winner_id,loser_id,rating_change) VALUES(1,2,25);
+		// INSERT INTO history(winner_id,loser_id,rating_change) VALUES(1,2,15);
 		// SELECT * FROM history;
 
 		$last_change = $this->Users_model->getFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
@@ -196,7 +197,7 @@ class Rankings extends MY_Controller {
 		);
 		print_r('<pre>');
 		print_r($last_change);
-		print_r($rankings);
+		print_r($players);
 		print_r($reverted_rankings);
 		print_r('</pre>');
 
