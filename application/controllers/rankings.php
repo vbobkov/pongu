@@ -173,12 +173,12 @@ class Rankings extends MY_Controller {
 	}
 
 	public function undoLastMatch() {
-		return;
 		// DROP TABLE IF EXISTS history;CREATE TABLE history (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,winner_id INT(11),loser_id INT(11),winner_old_rating INT(11),loser_old_rating INT(11),rating_change INT(11),time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 		// INSERT INTO history(winner_id,loser_id,rating_change) VALUES(1,2,25);
 		// INSERT INTO history(winner_id,loser_id,rating_change) VALUES(1,2,15);
 		// SELECT * FROM history;
 
+		/*
 		$last_change = $this->Users_model->getFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
 		if(sizeof($last_change) < 1) {
 			return;
@@ -216,9 +216,10 @@ class Rankings extends MY_Controller {
 		// update players set realtime_rating = 1780 where nickname='Hawk';update players set realtime_rating = 1709 where nickname='Pendulum';
 		// update players set realtime_rating = 1762 where nickname='Hawk';update players set realtime_rating = 1727 where nickname='Pendulum';
 		// http://54.149.229.47/rankings/undoLastMatch
+		*/
 
-		$column_names = array('id', 'realtime_rating');
-		$this->Users_model->importRows('players', 'id', $reverted_rankings, $column_names, $column_names);
+		// $column_names = array('id', 'realtime_rating');
+		// $this->Users_model->importRows('players', 'id', $reverted_rankings, $column_names, $column_names);
 		$this->Users_model->deleteFromTable('combat_log', 'id', array(), " ORDER BY id DESC LIMIT 1");
 		$this->Users_model->deleteFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
 	}
