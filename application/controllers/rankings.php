@@ -57,6 +57,17 @@ class Rankings extends MY_Controller {
 
 
 
+	public function getLastMatch() {
+		$last_match = $this->Users_model->getFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
+		if(sizeof($last_match) < 1) {
+			$last_match = array();
+		}
+		else {
+			$last_match = $last_match[0];
+		}
+		echo json_encode($last_match);
+	}
+
 	public function getRankings() {
 		$rankings = $this->Users_model->getFromTable('players', 'id');
 		$rank_epoch = $this->Users_model->getFromTable('rank_epoch', 'id', array(1));
@@ -162,6 +173,7 @@ class Rankings extends MY_Controller {
 	}
 
 	public function undoLastMatch() {
+		return;
 		// DROP TABLE IF EXISTS history;CREATE TABLE history (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,winner_id INT(11),loser_id INT(11),winner_old_rating INT(11),loser_old_rating INT(11),rating_change INT(11),time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 		// INSERT INTO history(winner_id,loser_id,rating_change) VALUES(1,2,25);
 		// INSERT INTO history(winner_id,loser_id,rating_change) VALUES(1,2,15);

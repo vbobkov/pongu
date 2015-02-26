@@ -459,9 +459,41 @@
 		});
 
 		$(document).delegate('#match .undo', 'click', function(event) {
-			update_rankings = true;
-			$.post('/rankings/undoLastMatch', function(response) {
-				refreshRankings();
+			// $.post('/rankings/undoLastMatch', function(response) {
+			// 	refreshRankings();
+			// });
+
+			//
+			$.post('/rankings/getLastMatch', function(response) {
+				var last_change = JSON.parse(response);
+
+				var winner = null;
+				var loser = null;
+				$.each(rankings, function(idx, player) {
+					if(player['id'] == last_change['winner_id']) {
+						winner = player;
+					}
+					else if($player['id'] == last_change['loser_id']) {
+						loser = player;
+					}
+				});
+				if(winner == null || loser == null) {
+					return false;
+				}
+				var reverted_rankings = [
+					{
+						'id': last_change['winner_id'],
+						'realtime_rating': winner['realtime_rating'] - last_change['rating_change']
+					},
+					{
+						'id': last_change['loser_id'],
+						'realtime_rating': loser['realtime_rating'] + last_change['rating_change']
+					}
+				];
+
+				console.log(last_match);
+				console.log(reverted_rankings);
+				// update_rankings = true;
 			});
 		});
 
