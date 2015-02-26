@@ -168,6 +168,10 @@ class Rankings extends MY_Controller {
 		// SELECT * FROM history;
 
 		$last_change = $this->Users_model->getFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
+		if(sizeof($last_change) < 1) {
+			return;
+		}
+		$last_change = $last_change[0];
 		$players = $this->Users_model->getFromTable('players', 'id', array('ids' => array($last_change['winner_id'], $last_change['loser_id'])));
 		$column_names = array('id', 'realtime_rating');
 		$winner = null;
