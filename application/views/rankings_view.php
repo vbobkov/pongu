@@ -19,6 +19,7 @@
 		<span class="cell"><label for="p2">P2 win</label><input type="radio" name="winner" id="p2"></span>
 	</div>
 	<button class="add">Add</button>
+	<button class="undo">Undo Last Match</button>
 	<div class="header history-header">Combat Log</div>
 	<div class="history">
 	</div>
@@ -455,6 +456,12 @@
 			combat_log.push(new_combat_log_entry);
 			update_rankings = true;
 			// refreshCombatLog();
+		});
+
+		$(document).delegate('#match .undo', 'click', function(event) {
+			// $.post('/rankings/undoLastMatch', function(response) {
+			// 	console.log(response);
+			// });
 		});
 
 		$(document).delegate('#match .reset-rank-epoch', 'click', function(event) {

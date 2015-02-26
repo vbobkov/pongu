@@ -162,6 +162,11 @@ class Rankings extends MY_Controller {
 		}
 	}
 
+	public function undoLastMatch() {
+		// $this->Users_model->deleteFromTable('combat_log', 'id', array(), "");
+		$this->Users_model->deleteFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
+	}
+
 	private function sortByID($e1, $e2) {
 		return $e1['id'] - $e2['id'];
 	}

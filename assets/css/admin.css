@@ -403,6 +403,10 @@ textarea {
 	margin-top: 1em;
 }
 
+#match .undo {
+	margin-left: 2em;
+}
+
 #player_stats {
 	/*background-color: #fff;*/
 	background-color: #fff; 
