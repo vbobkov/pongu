@@ -460,6 +460,7 @@
 
 		$(document).delegate('#match .undo', 'click', function(event) {
 			$.post('/rankings/undoLastMatch', function(response) {
+				console.log(response);
 			});
 		});
 
