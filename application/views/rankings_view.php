@@ -459,11 +459,6 @@
 		});
 
 		$(document).delegate('#match .undo', 'click', function(event) {
-			// $.post('/rankings/undoLastMatch', function(response) {
-			// 	refreshRankings();
-			// });
-
-			//
 			$.post('/rankings/getLastMatch', function(response) {
 				var last_change = JSON.parse(response);
 
