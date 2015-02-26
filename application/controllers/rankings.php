@@ -163,8 +163,42 @@ class Rankings extends MY_Controller {
 	}
 
 	public function undoLastMatch() {
-		// $this->Users_model->deleteFromTable('combat_log', 'id', array(), "");
-		$this->Users_model->deleteFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
+		// DROP TABLE IF EXISTS history;CREATE TABLE history (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,winner_id INT(11),loser_id INT(11),winner_old_rating INT(11),loser_old_rating INT(11),rating_change INT(11),time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+		// INSERT INTO history(rating_change) VALUES(1337);
+		// SELECT * FROM history;
+
+		$last_change = $this->Users_model->getFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
+		$players = $this->Users_model->getFromTable('history', 'id', array('ids' => array($last_change['winner_id'], $last_change['loser_id'])));
+		$column_names = array('id', 'realtime_rating');
+		$winner = null;
+		$loser = null;
+		foreach($players as $player) {
+			if($player['id'] == $last_change['winner_id']) {
+				$winner = $player;
+			}
+			else if($player['id'] == $last_change['loser_id']) {
+				$loser = $player;
+			}
+		}
+		$reverted_rankings = array(
+			array(
+				'id' => $last_change['winner_id'],
+				'realtime_rating' => $winner['realtime_rating'] - $last_change['rating_change']
+			),
+			array(
+				'id' => $last_change['loser_id'],
+				'realtime_rating' => $loser['realtime_rating'] + $last_change['rating_change']
+			)
+		);
+		print_r('<pre>');
+		print_r($last_change);
+		print_r($rankings);
+		print_r($reverted_rankings);
+		print_r('</pre>');
+
+		// $this->Users_model->importRows('players', 'id', $reverted_rankings, $column_names, $column_names);
+		// $this->Users_model->deleteFromTable('combat_log', 'id', array(), " ORDER BY id DESC LIMIT 1");
+		// $this->Users_model->deleteFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
 	}
 
 	private function sortByID($e1, $e2) {
