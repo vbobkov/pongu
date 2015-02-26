@@ -235,6 +235,16 @@ class Login extends MY_Controller {
 					target VARCHAR(255),
 					time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 				);
+				DROP TABLE IF EXISTS history;
+				CREATE TABLE history (
+					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+					winner_id INT(11),
+					loser_id INT(11),
+					winner_old_rating INT(11),
+					loser_old_rating INT(11),
+					rating_change INT(11),
+					time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+				);
 			");
 			echo 'Nuked the database for great justice.<br />';
 

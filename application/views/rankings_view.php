@@ -110,6 +110,7 @@
 	var HISTORY_LIMIT = 18;
 	var REDIS_LAST_SYNCED = Date.now() / 1000;
 	var REDIS_PINGER;
+	var battle_history = [];
 	var battle_results = [];
 	var combat_log = [];
 	var rankings;
@@ -196,7 +197,7 @@
 			if(update_rankings) {
 				update_rankings = false;
 				saveRankings();
-				$.post('/rankings/saveBattles', {'battle_results': battle_results}, function(response) {
+				$.post('/rankings/saveBattles', {'battle_history': battle_history, 'battle_results': battle_results}, function(response) {
 				});
 				$.post('/rankings/saveCombatLog', {'combat_log': combat_log}, function(response) {
 				});
@@ -412,6 +413,7 @@
 				return false;
 			}
 
+			battle_history = [];
 			battle_results = [];
 			var winner;
 			var loser;
@@ -423,11 +425,18 @@
 					loser = player;
 				}
 			});
+			new_battle_history_entry = {
+				'id': -1,
+				'winner_id': winner['id'],
+				'loser_id': loser['id'],
+				'winner_old_rating': winner['realtime_rating'],
+				'loser_old_rating': loser['realtime_rating'],
+			};
 			battle_results.push({
 				'id': -1,
 				'player_id': winner['id'],
 				'opponent_id': loser['id'],
-				'wins': 1
+				'wins': 1,
 			});
 			var new_combat_log_entry = {
 				'id': -1,
@@ -438,6 +447,8 @@
 			};
 
 			score_change = calcRatingChange(winner['realtime_rating'], loser['realtime_rating'], 1)
+			new_battle_history_entry['rating_change'] = score_change;
+			battle_history.push(new_battle_history_entry);
 			winner['realtime_rating'] = parseInt(winner['realtime_rating']) + parseInt(score_change);
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
 

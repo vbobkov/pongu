@@ -76,6 +76,7 @@ class Rankings extends MY_Controller {
 		else {
 			$new_rank_epoch = array();
 		}
+
 		$column_names = array('id','nickname','fname','lname','rating','realtime_rating');
 		$column_names2 = array('id','last_sync');
 		$this->Users_model->importRows('players', 'id', $new_rankings, $column_names, $column_names);
@@ -101,6 +102,12 @@ class Rankings extends MY_Controller {
 	}
 
 	public function saveBattles() {
+		if($this->input->post('battle_history') != null) {
+			$battle_history = $this->input->post('battle_history');
+		}
+		else {
+			$battle_history = array();
+		}
 		if($this->input->post('battle_results') != null) {
 			$battle_results = $this->input->post('battle_results');
 		}
@@ -128,9 +135,11 @@ class Rankings extends MY_Controller {
 			}
 		}
 
-		print_r($battle_results);
+		// print_r($battle_results);
 		$column_names = array('id','player_id','opponent_id','wins');
 		$this->Users_model->importRows('battles', 'id', $battle_results, $column_names, $column_names);
+		$column_names2 = array('id','winner_id','loser_id','winner_old_rating','loser_old_rating','rating_change');
+		$this->Users_model->importRows('history', 'id', $battle_history, $column_names2, $column_names2);
 	}
 
 	public function saveCombatLog() {
