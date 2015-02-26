@@ -491,7 +491,7 @@
 					}
 				];
 
-				console.log(last_match);
+				console.log(last_change);
 				console.log(reverted_rankings);
 				// $.post('/rankings/undoLastMatch', function(response) {
 				// 	refreshRankings();
