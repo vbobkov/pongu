@@ -480,19 +480,23 @@
 				if(winner == null || loser == null) {
 					return false;
 				}
+
 				var reverted_rankings = [
 					{
 						'id': last_change['winner_id'],
-						'realtime_rating': winner['realtime_rating'] - last_change['rating_change']
+						'realtime_rating': parseInt(winner['realtime_rating']) - parseInt(last_change['rating_change'])
 					},
 					{
 						'id': last_change['loser_id'],
-						'realtime_rating': loser['realtime_rating'] + last_change['rating_change']
+						'realtime_rating': parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change'])
 					}
 				];
+				// winner['realtime_rating'] = parseInt(winner['realtime_rating']) - parseInt(last_change['rating_change']);
+				// loser['realtime_rating'] = parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change']);
 
 				console.log(last_change);
 				console.log(reverted_rankings);
+				// console.log(rankings);
 				// $.post('/rankings/undoLastMatch', function(response) {
 				// 	refreshRankings();
 				// 	update_rankings = true;
