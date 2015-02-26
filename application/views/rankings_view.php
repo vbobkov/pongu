@@ -473,7 +473,7 @@
 					if(player['id'] == last_change['winner_id']) {
 						winner = player;
 					}
-					else if($player['id'] == last_change['loser_id']) {
+					else if(player['id'] == last_change['loser_id']) {
 						loser = player;
 					}
 				});
@@ -493,7 +493,10 @@
 
 				console.log(last_match);
 				console.log(reverted_rankings);
-				// update_rankings = true;
+				// $.post('/rankings/undoLastMatch', function(response) {
+				// 	refreshRankings();
+				// 	update_rankings = true;
+				// });
 			});
 		});
 
