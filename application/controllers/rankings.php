@@ -203,6 +203,7 @@ class Rankings extends MY_Controller {
 		// print_r('</pre>');
 		// update players set realtime_rating = 1780 where nickname='Hawk';update players set realtime_rating = 1709 where nickname='Pendulum';
 		// update players set realtime_rating = 1762 where nickname='Hawk';update players set realtime_rating = 1727 where nickname='Pendulum';
+		// http://54.149.229.47/rankings/undoLastMatch
 
 		$column_names = array('id', 'realtime_rating');
 		$this->Users_model->importRows('players', 'id', $reverted_rankings, $column_names, $column_names);
