@@ -459,9 +459,8 @@
 		});
 
 		$(document).delegate('#match .undo', 'click', function(event) {
-			// $.post('/rankings/undoLastMatch', function(response) {
-			// 	console.log(response);
-			// });
+			$.post('/rankings/undoLastMatch', function(response) {
+			});
 		});
 
 		$(document).delegate('#match .reset-rank-epoch', 'click', function(event) {
