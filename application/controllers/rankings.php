@@ -135,7 +135,6 @@ class Rankings extends MY_Controller {
 			}
 		}
 
-		// print_r($battle_results);
 		$column_names = array('id','player_id','opponent_id','wins');
 		$this->Users_model->importRows('battles', 'id', $battle_results, $column_names, $column_names);
 		$column_names2 = array('id','winner_id','loser_id','winner_old_rating','loser_old_rating','rating_change');
@@ -195,15 +194,15 @@ class Rankings extends MY_Controller {
 				'realtime_rating' => $loser['realtime_rating'] + $last_change['rating_change']
 			)
 		);
-		print_r('<pre>');
-		print_r($last_change);
-		print_r($players);
-		print_r($reverted_rankings);
-		print_r('</pre>');
+		// print_r('<pre>');
+		// print_r($last_change);
+		// print_r($players);
+		// print_r($reverted_rankings);
+		// print_r('</pre>');
 
-		// $this->Users_model->importRows('players', 'id', $reverted_rankings, $column_names, $column_names);
-		// $this->Users_model->deleteFromTable('combat_log', 'id', array(), " ORDER BY id DESC LIMIT 1");
-		// $this->Users_model->deleteFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
+		$this->Users_model->importRows('players', 'id', $reverted_rankings, $column_names, $column_names);
+		$this->Users_model->deleteFromTable('combat_log', 'id', array(), " ORDER BY id DESC LIMIT 1");
+		$this->Users_model->deleteFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");
 	}
 
 	private function sortByID($e1, $e2) {
