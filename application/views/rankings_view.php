@@ -461,6 +461,7 @@
 		$(document).delegate('#match .undo', 'click', function(event) {
 			update_rankings = true;
 			$.post('/rankings/undoLastMatch', function(response) {
+				refreshRankings();
 			});
 		});
 
