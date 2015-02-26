@@ -203,6 +203,7 @@ class Rankings extends MY_Controller {
 		print_r('</pre>');
 
 		$column_names = array('id', 'realtime_rating');
+		print_r($this->Users_model->importRows('players', 'id', $reverted_rankings, $column_names, $column_names));
 		// $this->Users_model->importRows('players', 'id', $reverted_rankings, $column_names, $column_names);
 		// $this->Users_model->deleteFromTable('combat_log', 'id', array(), " ORDER BY id DESC LIMIT 1");
 		// $this->Users_model->deleteFromTable('history', 'id', array(), " ORDER BY id DESC LIMIT 1");

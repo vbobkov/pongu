@@ -247,7 +247,7 @@ class MY_Model extends CI_Model {
 						}
 						$i++;
 					}
-					$insert_stmt->execute();
+					// $insert_stmt->execute();
 					foreach($handles as $handle) {
 						fclose($handle);
 					}
@@ -283,7 +283,7 @@ class MY_Model extends CI_Model {
 						}
 						$i++;
 					}
-					$insert_stmt->execute();
+					// $insert_stmt->execute();
 					foreach($handles as $handle) {
 						fclose($handle);
 					}
