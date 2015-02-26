@@ -430,13 +430,13 @@
 				'winner_id': winner['id'],
 				'loser_id': loser['id'],
 				'winner_old_rating': winner['realtime_rating'],
-				'loser_old_rating': loser['realtime_rating'],
+				'loser_old_rating': loser['realtime_rating']
 			};
 			battle_results.push({
 				'id': -1,
 				'player_id': winner['id'],
 				'opponent_id': loser['id'],
-				'wins': 1,
+				'wins': 1
 			});
 			var new_combat_log_entry = {
 				'id': -1,
