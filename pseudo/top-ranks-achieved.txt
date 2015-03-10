@@ -1,7 +1,23 @@
 Hawk - 1 (1794)
 Pendulum - 1 (1746)
-Italian Stallion - 1 (1782)
+Italian Stallion - 1 (1805)
 Demolition Man - 1 (1729)
-Bendetta - 1
+Bendetta - 1 (1691)
 El Presidente - 1
 Honey Badger - 1
+
+UPDATE players SET highest_rank=1 WHERE nickname="Hawk";
+UPDATE players SET highest_rank=1 WHERE nickname="Pendulum";
+UPDATE players SET highest_rank=1 WHERE nickname="Italian Stallion";
+UPDATE players SET highest_rank=1 WHERE nickname="Demolition Man";
+UPDATE players SET highest_rank=1 WHERE nickname="Bendetta";
+UPDATE players SET highest_rank=1 WHERE nickname="El Presidente";
+UPDATE players SET highest_rank=1 WHERE nickname="Honey Badger";
+
+UPDATE players SET highest_rating=1794 WHERE nickname="Hawk";
+UPDATE players SET highest_rating=1746 WHERE nickname="Pendulum";
+UPDATE players SET highest_rating=1805 WHERE nickname="Italian Stallion";
+UPDATE players SET highest_rating=1729 WHERE nickname="Demolition Man";
+UPDATE players SET highest_rating=1691 WHERE nickname="Bendetta";
+UPDATE players SET highest_rating=1500 WHERE nickname="El Presidente";
+UPDATE players SET highest_rating=1581 WHERE nickname="Honey Badger";

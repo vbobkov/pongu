@@ -212,6 +212,8 @@ class Login extends MY_Controller {
 					lname VARCHAR(255),
 					rating INT(11),
 					realtime_rating INT(11),
+					highest_rank INT(11),
+					highest_rating INT(11),
 					UNIQUE(fname,lname)
 				);
 				DROP TABLE IF EXISTS rank_epoch;

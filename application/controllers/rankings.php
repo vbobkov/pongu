@@ -88,7 +88,7 @@ class Rankings extends MY_Controller {
 			$new_rank_epoch = array();
 		}
 
-		$column_names = array('id','nickname','fname','lname','rating','realtime_rating');
+		$column_names = array('id','nickname','fname','lname','rating','realtime_rating','highest_rank','highest_rating');
 		$column_names2 = array('id','last_sync');
 		$this->Users_model->importRows('players', 'id', $new_rankings, $column_names, $column_names);
 		$this->Users_model->importRows('rank_epoch', 'id', array($new_rank_epoch), $column_names2, $column_names2);

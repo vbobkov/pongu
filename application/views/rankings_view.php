@@ -303,6 +303,14 @@
 	}
 
 	function saveRankings() {
+		$.each(rankings, function(idx, player) {
+			if(player['highest_rank'] == null || player['highest_rank'] <= 0 || player['highest_rank'] > idx + 1) {
+				player['highest_rank'] = idx + 1;
+			}
+			if(player['highest_rating'] == null || player['highest_rating'] <= 0 || player['highest_rating'] < player['realtime_rating']) {
+				player['highest_rating'] = player['realtime_rating'];
+			}
+		});
 		$.post('/rankings/saveRankings', {'rankings': rankings, 'rank_epoch': rank_epoch}, function(response) {
 			$.post('/red/saveMatchUpdates', {'rankings': rankings}, function(response2) {
 				refreshRankings();
