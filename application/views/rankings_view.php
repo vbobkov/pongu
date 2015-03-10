@@ -47,6 +47,7 @@
 			</div>\
 			<div class="col realtime_rating"></div>\
 			<div class="col change"></div>\
+			<div class="col all-time-high"></div>\
 		</div>';
 	var PLAYER_STATS_INTRO_HTML = '\
 		<div class="intro">\
@@ -297,6 +298,7 @@
 				rating_delta_class = 'green';
 			}
 			player_div.find('.change').html('<span class="' + rank_delta_class + '">' + changes[player['id']]['rank_delta'] + '</span>&nbsp;(<span class="' + rating_delta_class + '">' + changes[player['id']]['rating_delta'] + '</span>)');
+			player_div.find('.all-time-high').html('<span>' + player['highest_rank'] + '</span>&nbsp;(<span>' + player['highest_rating'] + '</span>)');
 
 			rankings_container.append(player_div);
 		});

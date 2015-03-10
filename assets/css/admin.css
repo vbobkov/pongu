@@ -327,6 +327,10 @@ textarea {
 	min-width: 7em;
 }
 
+.players .player .all-time-high {
+	font-style: italic;
+}
+
 #match {
 	background-color: rgba(224,224,224,0.5);
 	margin: 0em 0em 0.25em 10em;
