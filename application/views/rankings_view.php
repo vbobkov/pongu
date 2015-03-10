@@ -3,6 +3,7 @@
 		<div class="header">Player</div>
 		<div class="header">Rating</div>
 		<div class="header">Change</div>
+		<div class="header">All Time High</div>
 	</div>
 	<div class="players">
 	</div>
