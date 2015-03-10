@@ -314,7 +314,8 @@ textarea {
 }
 
 .players .player .realtime_rating,
-.players .player .change {
+.players .player .change,
+.players .player .all-time-high {
 	height: 1em;
 	padding: 1.5em 1em 1em 1em;
 }
