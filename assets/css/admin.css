@@ -239,6 +239,10 @@ textarea {
 	min-width: 5.5em;
 }
 
+#pongu_rankings .headers .header:nth-child(3) {
+	min-width: 8em;
+}
+
 #pongu_rankings .headers .header:last-child {
 	min-width: 8em;
 }
