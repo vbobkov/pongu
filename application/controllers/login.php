@@ -260,7 +260,7 @@ class Login extends MY_Controller {
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('El Presidente','Daniel','Pegg',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Cabo Gus','Gus','Garcia',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Danger Boy','Justin','Levine',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Pendulum','Kyle','Holstein',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Crafty Conker','Kyle','Holstein',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Honey Badger','Mark','Cogley',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Beels','Matthew','Beelner',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('New York','Michael','Banks',1500,1500);
