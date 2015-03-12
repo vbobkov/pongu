@@ -435,6 +435,8 @@
 		$(document).delegate('#autoscroll', 'click', function(event) {
 			event.stopPropagation();
 			event.preventDefault();
+			$('body').scrollTop(0);
+			SCROLL_DIRECTION = 1;
 			RANKINGS_SCROLLER = setInterval(function() {autoScrollRankings(50,2000);}, 2000);
 		});
 
