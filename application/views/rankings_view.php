@@ -1,3 +1,4 @@
+<div><button id="autoscroll">Auto Scroll Rankings</button></div>
 <div id="pongu_rankings">
 	<div class="headers">
 		<div class="header">Player</div>
@@ -121,6 +122,9 @@
 	var rank_epoch;
 	var update_rankings = false;
 
+	var SCROLL_DIRECTION = 1;
+	var RANKINGS_SCROLLER;
+
 
 
 	function calcRatingChange(r1, r2, score) {
@@ -180,6 +184,17 @@
 	}
 
 
+
+	function autoScrollRankings(increment, delay) {
+		var page = $('body');
+		if(page.scrollTop() < $(document).height() && page.scrollTop() + increment > $(document).height() - $(window).height()) {
+			SCROLL_DIRECTION = -1;
+		}
+		else if(page.scrollTop() > 0 && page.scrollTop() - increment < 0) {
+			SCROLL_DIRECTION = 1;
+		}
+		page.animate({scrollTop: page.scrollTop() + (SCROLL_DIRECTION * increment)}, delay);
+	}
 
 	function checkRedisForNewRankings() {
 		$.post('/red/getMatchUpdates', {'redis_last_synced': REDIS_LAST_SYNCED}, function(response) {
@@ -410,6 +425,18 @@
 		});
 
 
+
+		$(document).delegate('html, body', 'click', function(event) {
+			if($(event.target).attr('id') != 'autoscroll') {
+				clearInterval(RANKINGS_SCROLLER);
+			}
+		});
+
+		$(document).delegate('#autoscroll', 'click', function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			RANKINGS_SCROLLER = setInterval(function() {autoScrollRankings(50,2000);}, 2000);
+		});
 
 		$(document).delegate('#match .add', 'click', function(event) {
 			event.preventDefault();
