@@ -189,11 +189,9 @@
 		var page = $('body');
 		if(page.scrollTop() < $(document).height() - $(window).height() && page.scrollTop() + increment > $(document).height() - $(window).height()) {
 			SCROLL_DIRECTION = -1;
-			console.log('wtf');
 		}
 		else if(page.scrollTop() > 0 && page.scrollTop() - increment < 0) {
 			SCROLL_DIRECTION = 1;
-			console.log('srs');
 		}
 		page.animate({scrollTop: page.scrollTop() + (SCROLL_DIRECTION * increment)}, delay);
 	}
@@ -431,7 +429,6 @@
 		$(document).delegate('html, body', 'click', function(event) {
 			if($(event.target).attr('id') != 'autoscroll') {
 				clearInterval(RANKINGS_SCROLLER);
-				console.log('wat');
 			}
 		});
 
