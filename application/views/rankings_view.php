@@ -199,11 +199,12 @@
 				}
 			}
 			if(update_rankings) {
-				update_rankings = false;
+				// update_rankings = false;
 				saveRankings();
 				$.post('/rankings/saveBattles', {'battle_history': battle_history, 'battle_results': battle_results}, function(response) {
 				});
 				$.post('/rankings/saveCombatLog', {'combat_log': combat_log}, function(response) {
+					update_rankings = false;
 					refreshCombatLog();
 				});
 			}
