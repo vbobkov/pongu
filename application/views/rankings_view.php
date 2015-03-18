@@ -187,10 +187,10 @@
 
 	function autoScrollRankings(increment, delay) {
 		var page = $('body');
-		if(page.scrollTop() < $(document).height() - $(window).height() && page.scrollTop() + increment > $(document).height() - $(window).height()) {
+		if(SCROLL_DIRECTION == 1 && page.scrollTop() < $(document).height() - $(window).height() && page.scrollTop() + increment > $(document).height() - $(window).height()) {
 			SCROLL_DIRECTION = -1;
 		}
-		else if(page.scrollTop() > 0 && page.scrollTop() - increment < 0) {
+		else if(SCROLL_DIRECTION == -1 && page.scrollTop() > 0 && page.scrollTop() - increment < 0) {
 			SCROLL_DIRECTION = 1;
 		}
 		page.animate({scrollTop: page.scrollTop() + (SCROLL_DIRECTION * increment)}, delay);
