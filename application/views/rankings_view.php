@@ -435,8 +435,10 @@
 		$(document).delegate('#autoscroll', 'click', function(event) {
 			event.stopPropagation();
 			event.preventDefault();
+			$('body').stop();
 			$('body').scrollTop(0);
 			SCROLL_DIRECTION = 1;
+			clearInterval(RANKINGS_SCROLLER);
 			RANKINGS_SCROLLER = setInterval(function() {autoScrollRankings(50,2000);}, 2000);
 		});
 
