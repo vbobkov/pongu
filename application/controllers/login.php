@@ -207,6 +207,7 @@ class Login extends MY_Controller {
 				DROP TABLE IF EXISTS players;
 				CREATE TABLE players (
 					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+					active INT(1) DEFAULT 1 NOT NULL,
 					nickname VARCHAR(255),
 					fname VARCHAR(255),
 					lname VARCHAR(255),
@@ -260,7 +261,7 @@ class Login extends MY_Controller {
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('El Presidente','Daniel','Pegg',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Cabo Gus','Gus','Garcia',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Danger Boy','Justin','Levine',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Crafty Conker','Kyle','Holstein',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating,active) VALUES('Crafty Conker','Kyle','Holstein',1500,1500,0);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Honey Badger','Mark','Cogley',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Beels','Matthew','Beelner',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('New York','Michael','Banks',1500,1500);

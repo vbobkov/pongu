@@ -69,7 +69,8 @@ class Rankings extends MY_Controller {
 	}
 
 	public function getRankings() {
-		$rankings = $this->Users_model->getFromTable('players', 'id');
+		// $rankings = $this->Users_model->getFromTable('players', 'id');
+		$rankings = $this->Users_model->getFromTable('players', 'id', array(), " WHERE active=1");
 		$rank_epoch = $this->Users_model->getFromTable('rank_epoch', 'id', array(1));
 		echo json_encode(array('rankings' => $rankings, 'rank_epoch' => $rank_epoch));
 	}
