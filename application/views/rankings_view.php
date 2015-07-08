@@ -521,7 +521,11 @@
 
 			combat_log.push(new_combat_log_entry);
 			update_rankings = true;
-			// refreshCombatLog();
+
+			$.post('/rankings/saveCombatLog', {'combat_log': combat_log}, function(response) {
+				update_rankings = false;
+				refreshCombatLog();
+			});
 		});
 
 		$(document).delegate('#match .undo', 'click', function(event) {
