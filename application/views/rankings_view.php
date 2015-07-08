@@ -197,6 +197,24 @@
 	}
 
 	function checkRedisForNewRankings() {
+		$.post('/rankings/getRankings', function(response) {
+			response = JSON.parse(response);
+			rankings = response['rankings'];
+			rank_epoch = response['rank_epoch'][0];
+			response = null;
+
+			player_names = {};
+			refreshRankings();
+			refreshRankEpoch();
+
+			populateSelectBox($('#match .p1_selectbox'), player_names);
+			sortSelectBoxAlphabetically($('#match .p1_selectbox'));
+			populateSelectBox($('#match .p2_selectbox'), player_names);
+			sortSelectBoxAlphabetically($('#match .p2_selectbox'));
+		});
+
+
+		/*
 		$.post('/red/getMatchUpdates', {'redis_last_synced': REDIS_LAST_SYNCED}, function(response) {
 			if(response != null && response != '') {
 				var redis_response = JSON.parse(response);
@@ -205,12 +223,10 @@
 				}
 				if(redis_response.length > 1 && redis_response[1].length > 0) {
 					rankings = JSON.parse(redis_response[1][0][0]);
-					/*
-					combat_log = JSON.parse(redis_response[2][0][0]);
-					if(typeof combat_log !== 'object') {
-						combat_log = [];
-					}
-					*/
+					// combat_log = JSON.parse(redis_response[2][0][0]);
+					// if(typeof combat_log !== 'object') {
+					// 	combat_log = [];
+					// }
 				}
 			}
 			if(update_rankings) {
@@ -231,6 +247,7 @@
 				});
 			}
 		});
+		*/
 	}
 
 	function convertDateToYMDHMS(d) {
@@ -331,9 +348,9 @@
 			}
 		});
 		$.post('/rankings/saveRankings', {'rankings': rankings, 'rank_epoch': rank_epoch}, function(response) {
-			$.post('/red/saveMatchUpdates', {'rankings': rankings}, function(response2) {
-				refreshRankings();
-			});
+			// $.post('/red/saveMatchUpdates', {'rankings': rankings}, function(response2) {
+			// });
+			refreshRankings();
 		});
 	}
 
