@@ -208,6 +208,7 @@ class Login extends MY_Controller {
 				CREATE TABLE players (
 					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 					active INT(1) DEFAULT 1 NOT NULL,
+					afk INT(1) DEFAULT 0 NOT NULL,
 					nickname VARCHAR(255),
 					fname VARCHAR(255),
 					lname VARCHAR(255),
