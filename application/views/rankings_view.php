@@ -545,8 +545,13 @@
 					return false;
 				}
 
+				// winner['realtime_rating'] = parseInt(winner['realtime_rating']) - parseInt(last_change['rating_change']);
+				// loser['realtime_rating'] = parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change']);
 				rankings[winner_idx]['realtime_rating'] = parseInt(winner['realtime_rating']) - parseInt(last_change['rating_change']);
 				rankings[loser_idx]['realtime_rating'] = parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change']);
+				console.log(winner_idx);
+				console.log(loser_idx);
+				console.log(rankings[0]['realtime_rating']);
 
 				saveRankings();
 				$.post('/rankings/undoLastMatch', function(response) {
