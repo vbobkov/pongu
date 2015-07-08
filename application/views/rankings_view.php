@@ -297,7 +297,8 @@
 	function refreshRankings() {
 		var rankings_container = $('#pongu_rankings .players');
 		rankings_container.html('');
-		rankings.sort(sortByRealtimeRatingDescending);
+		// rankings.sort(sortByRealtimeRatingDescending);
+		rankings.sort(sortByAFKAndRealtimeRatingDescending);
 
 		var changes = getRankingChanges();
 		var player_div;
@@ -354,8 +355,8 @@
 	}
 
 	function sortByName(a, b) {
-		name1 = a['fname'] + ' ' + a['lname'];
-		name2 = b['fname'] + ' ' + b['lname'];
+		var name1 = a['fname'] + ' ' + a['lname'];
+		var name2 = b['fname'] + ' ' + b['lname'];
 		if(name1 == name2) {
 			return 0;
 		}
@@ -368,7 +369,7 @@
 	}
 
 	function sortByRatingDescending(a, b) {
-		result = parseInt(b['rating']) - parseInt(a['rating']);
+		var result = parseInt(b['rating']) - parseInt(a['rating']);
 		if(result == 0) {
 			return sortByName(a, b);
 		}
@@ -378,9 +379,19 @@
 	}
 
 	function sortByRealtimeRatingDescending(a, b) {
-		result = parseInt(b['realtime_rating']) - parseInt(a['realtime_rating']);
+		var result = parseInt(b['realtime_rating']) - parseInt(a['realtime_rating']);
 		if(result == 0) {
 			return sortByName(a, b);
+		}
+		else {
+			return result;
+		}
+	}
+
+	function sortByAFKAndRealtimeRatingDescending(a, b) {
+		var result = (-1 * parseInt(b['afk'])) - (-1 * parseInt(a['afk']));
+		if(result == 0) {
+			return sortByRealtimeRatingDescending(a, b);
 		}
 		else {
 			return result;
