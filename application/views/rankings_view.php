@@ -271,19 +271,22 @@
 	}
 
 	function refreshCombatLog() {
-		while(combat_log.length > HISTORY_LIMIT) {
-			combat_log.shift();
-		}
-		var combat_log_container = $('#match .history');
-		combat_log_container.html('');
-		var new_combat_log_line;
-		$.each(combat_log, function(idx, entry) {
-			new_combat_log_line = $(HISTORY_LINE_HTML);
-			new_combat_log_line.find('.timestamp').html('[' + entry['time'] + ']');
-			new_combat_log_line.find('.caster').html(entry['caster']);
-			new_combat_log_line.find('.spell').html('{' + entry['spell'] + '}');
-			new_combat_log_line.find('.target').html(entry['target']);
-			combat_log_container.append(new_combat_log_line);
+		$.post('/rankings/getCombatLog', {}, function(response) {
+			var combat_log = JSON.parse(response);
+			while(combat_log.length > HISTORY_LIMIT) {
+				combat_log.shift();
+			}
+			var combat_log_container = $('#match .history');
+			combat_log_container.html('');
+			var new_combat_log_line;
+			$.each(combat_log, function(idx, entry) {
+				new_combat_log_line = $(HISTORY_LINE_HTML);
+				new_combat_log_line.find('.timestamp').html('[' + entry['time'] + ']');
+				new_combat_log_line.find('.caster').html(entry['caster']);
+				new_combat_log_line.find('.spell').html('{' + entry['spell'] + '}');
+				new_combat_log_line.find('.target').html(entry['target']);
+				combat_log_container.append(new_combat_log_line);
+			});
 		});
 	}
 
