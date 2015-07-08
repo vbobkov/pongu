@@ -516,10 +516,9 @@
 			loser['realtime_rating'] = parseInt(loser['realtime_rating']) - parseInt(score_change);
 
 			combat_log.push(new_combat_log_entry);
-			update_rankings = true;
 
+			saveRankings();
 			$.post('/rankings/saveCombatLog', {'combat_log': combat_log}, function(response) {
-				update_rankings = false;
 				refreshCombatLog();
 			});
 		});
@@ -546,7 +545,8 @@
 				loser['realtime_rating'] = parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change']);
 
 				$.post('/rankings/undoLastMatch', function(response) {
-					update_rankings = true;
+					refreshRankings();
+					refreshCombatLog();
 				});
 			});
 		});
