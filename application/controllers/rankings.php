@@ -89,7 +89,7 @@ class Rankings extends MY_Controller {
 			$new_rank_epoch = array();
 		}
 		foreach($new_rankings as $idx => $new_ranking) {
-			$new_rankings[$idx]['afk'] = 0;
+			// $new_rankings[$idx]['afk'] = 0;
 		}
 
 		$column_names = array('id','nickname','fname','lname','rating','realtime_rating','highest_rank','highest_rating');
