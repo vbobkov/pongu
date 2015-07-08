@@ -308,7 +308,14 @@
 			player_names[player['id']] = '[' +  player['fname'] + ' ' + player['lname'] + '] ' + player['nickname'];
 			player_div = $(PLAYER_RANKING_HTML);
 			player_div.find('[name="player_id"]').prop('value', player['id']);
-			player_div.find('.nickname').html(player['nickname']);
+
+			if(player['afk'] > 0) {
+				player_div.find('.nickname').html(player['nickname'] + '&nbsp;<span style="color:#f00">(AFK)</span>');
+			}
+			else {
+				player_div.find('.nickname').html(player['nickname']);
+			}
+
 			if(player['nickname'] != '') {
 				player_div.find('.nickname_img').css('background', 'url(/assets/img/player_emblems/[32]' + encodeURIComponent(player['nickname']) + '.png)');
 			}
