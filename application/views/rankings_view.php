@@ -434,6 +434,7 @@
 			refreshRankings();
 			refreshRankEpoch();
 
+			checkRedisForNewRankings();
 			clearInterval(REDIS_PINGER);
 			REDIS_PINGER = setInterval(function() {
 				checkRedisForNewRankings();
