@@ -544,6 +544,7 @@
 				winner['realtime_rating'] = parseInt(winner['realtime_rating']) - parseInt(last_change['rating_change']);
 				loser['realtime_rating'] = parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change']);
 
+				saveRankings();
 				$.post('/rankings/undoLastMatch', function(response) {
 					refreshRankings();
 					refreshCombatLog();
