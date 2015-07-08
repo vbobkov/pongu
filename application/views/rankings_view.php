@@ -206,6 +206,7 @@
 			player_names = {};
 			refreshRankings();
 			refreshRankEpoch();
+			refreshCombatLog();
 
 			populateSelectBox($('#match .p1_selectbox'), player_names);
 			sortSelectBoxAlphabetically($('#match .p1_selectbox'));
