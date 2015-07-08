@@ -521,6 +521,8 @@
 			$.post('/rankings/saveCombatLog', {'combat_log': combat_log}, function(response) {
 				refreshCombatLog();
 			});
+			$.post('/rankings/saveBattles', {'battle_history': battle_history, 'battle_results': battle_results}, function(response) {
+			});
 		});
 
 		$(document).delegate('#match .undo', 'click', function(event) {
@@ -549,10 +551,6 @@
 				// loser['realtime_rating'] = parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change']);
 				rankings[winner_idx]['realtime_rating'] = parseInt(winner['realtime_rating']) - parseInt(last_change['rating_change']);
 				rankings[loser_idx]['realtime_rating'] = parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change']);
-				console.log(last_change);
-				console.log(winner_idx);
-				console.log(loser_idx);
-				console.log(rankings[0]['realtime_rating']);
 
 				saveRankings();
 				$.post('/rankings/undoLastMatch', function(response) {
