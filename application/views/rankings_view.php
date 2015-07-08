@@ -529,20 +529,24 @@
 
 				var winner = null;
 				var loser = null;
+				var winner_idx = -1;
+				var loser_idx = -1;
 				$.each(rankings, function(idx, player) {
 					if(player['id'] == last_change['winner_id']) {
 						winner = player;
+						winner_idx = idx;
 					}
 					else if(player['id'] == last_change['loser_id']) {
 						loser = player;
+						loser_idx = idx;
 					}
 				});
 				if(winner == null || loser == null) {
 					return false;
 				}
 
-				winner['realtime_rating'] = parseInt(winner['realtime_rating']) - parseInt(last_change['rating_change']);
-				loser['realtime_rating'] = parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change']);
+				rankings[winner_idx]['realtime_rating'] = parseInt(winner['realtime_rating']) - parseInt(last_change['rating_change']);
+				rankings[loser_idx]['realtime_rating'] = parseInt(loser['realtime_rating']) + parseInt(last_change['rating_change']);
 
 				saveRankings();
 				$.post('/rankings/undoLastMatch', function(response) {
