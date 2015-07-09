@@ -1,4 +1,5 @@
 <div><button id="autoscroll">Auto Scroll Rankings</button></div>
+<div><button id="autocycle">Auto Cycle Stats</button></div>
 <div id="pongu_rankings">
 	<div class="headers">
 		<div class="header">Player</div>
@@ -124,6 +125,9 @@
 
 	var SCROLL_DIRECTION = 1;
 	var RANKINGS_SCROLLER;
+
+	var STATS_CURRENT_CYCLE_TARGET = null;
+	var STATS_CYCLER;
 
 
 
@@ -464,6 +468,7 @@
 		$(document).delegate('html, body', 'click', function(event) {
 			if($(event.target).attr('id') != 'autoscroll') {
 				clearInterval(RANKINGS_SCROLLER);
+				clearInterval(STATS_CYCLER);
 			}
 		});
 
@@ -475,6 +480,23 @@
 			SCROLL_DIRECTION = 1;
 			clearInterval(RANKINGS_SCROLLER);
 			RANKINGS_SCROLLER = setInterval(function() {autoScrollRankings(50,2000);}, 2000);
+		});
+
+		$(document).delegate('#autocycle', 'click', function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			STATS_CURRENT_CYCLE_TARGET = 0;
+			clearInterval(RANKINGS_SCROLLER);
+			STATS_CYCLER = setInterval(function() {
+				var player_containers = $('#pongu_rankings .players .player');
+				$(player_containers[STATS_CURRENT_CYCLE_TARGET]).find('.info .nickname_container .nickname').click();
+				if(STATS_CURRENT_CYCLE_TARGET < player_containers.length) {
+					STATS_CURRENT_CYCLE_TARGET++;
+				}
+				else {
+					STATS_CURRENT_CYCLE_TARGET = 0;
+				}
+			}, 10000);
 		});
 
 		$(document).delegate('#match .add', 'click', function(event) {
