@@ -468,6 +468,8 @@
 		$(document).delegate('html, body', 'click', function(event) {
 			if($(event.target).attr('id') != 'autoscroll') {
 				clearInterval(RANKINGS_SCROLLER);
+			}
+			if($(event.target).attr('id') != 'autocycle') {
 				clearInterval(STATS_CYCLER);
 			}
 		});
@@ -488,7 +490,6 @@
 			STATS_CURRENT_CYCLE_TARGET = 0;
 			clearInterval(STATS_CYCLER);
 			STATS_CYCLER = setInterval(function() {
-				console.log('wtf');
 				var player_containers = $('#pongu_rankings .players .player');
 				var this_player_container = $(player_containers[STATS_CURRENT_CYCLE_TARGET]);
 				var this_player_nickname = this_player_container.find('.info .nickname_container .nickname');
@@ -504,8 +505,7 @@
 				else {
 					STATS_CURRENT_CYCLE_TARGET = 0;
 				}
-				console.log(STATS_CURRENT_CYCLE_TARGET);
-			}, 1000);
+			}, 10000);
 		});
 
 		$(document).delegate('#match .add', 'click', function(event) {
