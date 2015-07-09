@@ -505,7 +505,7 @@
 					STATS_CURRENT_CYCLE_TARGET = 0;
 				}
 				console.log(STATS_CURRENT_CYCLE_TARGET);
-			}, 10000);
+			}, 1000);
 		});
 
 		$(document).delegate('#match .add', 'click', function(event) {
