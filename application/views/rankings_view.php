@@ -471,7 +471,7 @@
 			}
 			if($(event.target).attr('id') != 'autocycle') {
 				clearInterval(STATS_CYCLER);
-				console.log('srs');
+				console.log(event.target);
 			}
 		});
 
