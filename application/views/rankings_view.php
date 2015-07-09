@@ -488,6 +488,7 @@
 			STATS_CURRENT_CYCLE_TARGET = 0;
 			clearInterval(STATS_CYCLER);
 			STATS_CYCLER = setInterval(function() {
+				console.log('wtf');
 				var player_containers = $('#pongu_rankings .players .player');
 				var this_player_container = $(player_containers[STATS_CURRENT_CYCLE_TARGET]);
 				var this_player_nickname = this_player_container.find('.info .nickname_container .nickname');
@@ -503,6 +504,7 @@
 				else {
 					STATS_CURRENT_CYCLE_TARGET = 0;
 				}
+				console.log(STATS_CURRENT_CYCLE_TARGET);
 			}, 10000);
 		});
 
