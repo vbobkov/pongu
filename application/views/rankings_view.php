@@ -491,12 +491,14 @@
 			clearInterval(STATS_CYCLER);
 			STATS_CYCLER = setInterval(function() {
 				var player_containers = $('#pongu_rankings .players .player');
-				var this_player_container = $(player_containers[STATS_CURRENT_CYCLE_TARGET]);
-				var this_player_nickname = this_player_container.find('.info .nickname_container .nickname');
 				if(this_player_nickname.text().indexOf('(AFK)') != -1) {
 					STATS_CURRENT_CYCLE_TARGET = 0;
 				}
+
+				var this_player_container = $(player_containers[STATS_CURRENT_CYCLE_TARGET]);
+				var this_player_nickname = this_player_container.find('.info .nickname_container .nickname');
 				this_player_nickname.click();
+
 				if(STATS_CURRENT_CYCLE_TARGET < player_containers.length) {
 					STATS_CURRENT_CYCLE_TARGET++;
 				}
