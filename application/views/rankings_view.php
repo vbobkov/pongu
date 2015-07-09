@@ -486,7 +486,7 @@
 			event.stopPropagation();
 			event.preventDefault();
 			STATS_CURRENT_CYCLE_TARGET = 0;
-			clearInterval(RANKINGS_SCROLLER);
+			clearInterval(STATS_CYCLER);
 			STATS_CYCLER = setInterval(function() {
 				var player_containers = $('#pongu_rankings .players .player');
 				$(player_containers[STATS_CURRENT_CYCLE_TARGET]).find('.info .nickname_container .nickname').click();
