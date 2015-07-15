@@ -237,7 +237,8 @@ class Login extends MY_Controller {
 					caster VARCHAR(255),
 					spell VARCHAR(255),
 					target VARCHAR(255),
-					time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+					time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					unique(time)
 				);
 				DROP TABLE IF EXISTS history;
 				CREATE TABLE history (
