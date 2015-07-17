@@ -271,7 +271,7 @@
 
 	function refreshCombatLog() {
 		$.post('/rankings/getCombatLog', {}, function(response) {
-			var combat_log = JSON.parse(response);
+			combat_log = JSON.parse(response);
 			while(combat_log.length > HISTORY_LIMIT) {
 				combat_log.shift();
 			}
