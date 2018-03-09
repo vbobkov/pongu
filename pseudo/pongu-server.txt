@@ -15,6 +15,10 @@ vi /etc/nginx/nginx.conf
 systemctl enable nginx
 systemctl start nginx
 
+yum install php-fpm
+systemctl enable php-fpm
+systemctl start php-fpm
+
 cd /root
 wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
