@@ -106,10 +106,11 @@ http {
 
 
 	server {
-		# listen 80;
-		server_name pongu.local;
+		listen 80;
+		# server_name pongu.local;
+		server_name pongu.ezoic.com;
 		#root  /Users/V/pongu;
-		root  /home/pongu;
+		root  /var/www/pongu;
 		index index.php index.html index.htm;
 
 		if ($request_uri ~* ^(/welcome(/index)?|/index(.php)?)/?$) {
@@ -134,7 +135,7 @@ http {
 			fastcgi_pass 127.0.0.1:9000;
 			fastcgi_index index.php;
 			#fastcgi_param SCRIPT_FILENAME /Users/V/pongu$fastcgi_script_name;
-			fastcgi_param SCRIPT_FILENAME /home/pongu$fastcgi_script_name;
+			fastcgi_param SCRIPT_FILENAME /var/www/pongu$fastcgi_script_name;
 			include fastcgi_params;
 		}
 		location ~ /(pseudo) {

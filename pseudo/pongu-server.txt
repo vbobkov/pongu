@@ -1,0 +1,19 @@
+ezdock-chef-server [
+i-033b3a003f0ac1730
+ssh -i /Users/victorbobkov/Documents/aws/FARM-14311-ab6d8171.us-east-1.pem centos@34.203.149.31
+]
+
+sudo su root
+
+yum update
+
+yum install -y git iotop epel-release php mysql telnet
+yum install -y nginx
+
+
+mkdir -p /var/www
+cd /var/www
+git clone https://github.com/vbobkov/pongu
+
+cp /etc/nginx/nginx.conf /etc/nginx/nginx-orig.conf
+vi /etc/nginx/nginx.conf
