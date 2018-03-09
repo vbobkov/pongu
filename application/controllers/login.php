@@ -259,6 +259,8 @@ class Login extends MY_Controller {
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Dwayne','Lafleur',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Dan','O\'Bryan',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Leo','Jordan','Duncan',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Gavin','Bechtold',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Jan','Creidenberg',1500,1500);
 					INSERT INTO rank_epoch() VALUES();
 				");
 				$add_players->execute();
