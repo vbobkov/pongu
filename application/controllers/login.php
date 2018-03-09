@@ -255,24 +255,10 @@ class Login extends MY_Controller {
 
 			if($add_players) {
 				$add_players = $plain_pdo->prepare("
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Italian Stallion','Alberto','Lia',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Ben Kenobi','Ben','Joven',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Bendetta','Ben','Wilder',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Blackbeard','Chris','Rodeno',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Call Me Alias','Kashif','Hasan',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('El Presidente','Daniel','Pegg',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Cabo Gus','Gus','Garcia',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Whiplash','Justin','Levine',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating,active) VALUES('Crafty Conker','Kyle','Holstein',1500,1500,0);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Honey Badger','Mark','Cogley',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Beels','Matthew','Beelner',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Rainbow Dash','Megan','King',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('New York','Michael','Banks',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Rainmaker','Nick','Urbani',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Demolition Man','Peter','Molchanov',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Hulk','Sarith','Kim',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Hawk','Vik','Bobkov',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Gnar Shredder','Will','Gwyn',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Captain Falcon','Victor','Bobkov',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Dwayne','Lafleur',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Dan','O\'Bryan',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Leo','Jordan','Duncan',1500,1500);
 					INSERT INTO rank_epoch() VALUES();
 				");
 				$add_players->execute();
