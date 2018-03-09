@@ -7,7 +7,7 @@ sudo su root
 
 yum update
 
-yum install -y git iotop epel-release php mysql telnet wget
+yum install -y git iotop epel-release php php-mysql mysql telnet wget
 yum install nginx
 
 cp /etc/nginx/nginx.conf /etc/nginx/nginx-orig.conf
