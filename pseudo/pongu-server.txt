@@ -19,6 +19,10 @@ yum install php-fpm
 systemctl enable php-fpm
 systemctl start php-fpm
 
+yum install redis
+systemctl enable redis
+systemctl start redis
+
 cd /root
 wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm

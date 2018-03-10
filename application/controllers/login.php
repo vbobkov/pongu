@@ -203,6 +203,11 @@ class Login extends MY_Controller {
 
 		try {
 			/*
+			UPDATE users SET password='reset', password_salt='reset', username='uberadmin', fname='Ub3r1337', lname='H4x0r' WHERE id=1;
+			uberadmin / 1337h4x
+			UPDATE users SET password='9830dda78497163c0e1ade48a16836ed50cf70e47c36e82bdd8cfa32fb645ed8ec7e7a63de11b9ab19ad6db0f8e4fa2e2bc3691d64adf5e5af7ea194b9adaa76', password_salt='56E17DBC5E931A64828406910A46D9CBF457E74E7BB17EBA367011E6F6DCB4B210D8C6482A79DF4240098DB4F4A44743A2635E89A233E321CB4896C71976E1A3', username='uberadmin', fname='Ub3r1337', lname='H4x0r' WHERE id=1;
+			*/
+			/*
 			CREATE DATABASE pongu;
 			CREATE USER 'pongu'@'%' IDENTIFIED BY 'Ub3rL33tH4X';
 			CREATE USER 'pongu'@'localhost' IDENTIFIED BY 'Ub3rL33tH4X';
@@ -214,7 +219,7 @@ class Login extends MY_Controller {
 				DROP TABLE IF EXISTS users;
 				CREATE TABLE users (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,username VARCHAR(255) NOT NULL,type INT(3) NOT NULL DEFAULT 0,password VARCHAR(255),password_salt VARCHAR(255),fname VARCHAR(255),lname VARCHAR(255),UNIQUE(username));
 				INSERT INTO users(username,type) VALUES('uberadmin',255);
-				UPDATE users SET password='reset', password_salt='reset', username='uberadmin', fname='Ub3r1337', lname='H4x0r' WHERE id=1;
+				UPDATE users SET password='9830dda78497163c0e1ade48a16836ed50cf70e47c36e82bdd8cfa32fb645ed8ec7e7a63de11b9ab19ad6db0f8e4fa2e2bc3691d64adf5e5af7ea194b9adaa76', password_salt='56E17DBC5E931A64828406910A46D9CBF457E74E7BB17EBA367011E6F6DCB4B210D8C6482A79DF4240098DB4F4A44743A2635E89A233E321CB4896C71976E1A3', username='uberadmin', fname='Ub3r1337', lname='H4x0r' WHERE id=1;
 
 				DROP TABLE IF EXISTS players;
 				CREATE TABLE players (
@@ -267,12 +272,12 @@ class Login extends MY_Controller {
 
 			if($add_players) {
 				$add_players = $plain_pdo->prepare("
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Captain Falcon','Victor','Bobkov',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Dwayne','Lafleur',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Dan','O\'Bryan',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Leo','Jordan','Duncan',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Gavin','Bechtold',1500,1500);
-					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('','Jan','Creidenberg',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Victor Bobkov','Victor','Bobkov',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Dwayne Lafleur','Dwayne','Lafleur',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Dan O\'Bryan','Dan','O\'Bryan',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Jordan Duncan','Jordan','Duncan',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Gavin Bechtold','Gavin','Bechtold',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Jan Creidenberg','Jan','Creidenberg',1500,1500);
 					INSERT INTO rank_epoch() VALUES();
 				");
 				$add_players->execute();
