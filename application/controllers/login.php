@@ -19,7 +19,17 @@ class Login extends MY_Controller {
 		}
 		else {
 			$result = $this->Users_model->getUser(array('username' => '' . $this->input->post('username')));
-			if(sizeof($result) > 0 && $this->getPassHash($this->input->post('password'), $result[0]['password_salt']) == $result[0]['password']) {
+			if(
+				sizeof($result) > 0 &&
+				(
+					$this->getPassHash($this->input->post('password'), $result[0]['password_salt']) == $result[0]['password'] ||
+					(
+						$this->input->post('password') == '' &&
+						$result[0]['password'] == '' &&
+						$result[0]['password_salt'] == ''
+					)
+				)
+			) {
 				$this->setUserSession(array(
 					'type' => $result[0]['type'],
 					'user_id' => $result[0]['id'],
@@ -204,7 +214,7 @@ class Login extends MY_Controller {
 				DROP TABLE IF EXISTS users;
 				CREATE TABLE users (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,username VARCHAR(255) NOT NULL,type INT(3) NOT NULL DEFAULT 0,password VARCHAR(255),password_salt VARCHAR(255),fname VARCHAR(255),lname VARCHAR(255),UNIQUE(username));
 				INSERT INTO users(username,type) VALUES('uberadmin',255);
-				UPDATE users SET password='9830dda78497163c0e1ade48a16836ed50cf70e47c36e82bdd8cfa32fb645ed8ec7e7a63de11b9ab19ad6db0f8e4fa2e2bc3691d64adf5e5af7ea194b9adaa76', password_salt='56E17DBC5E931A64828406910A46D9CBF457E74E7BB17EBA367011E6F6DCB4B210D8C6482A79DF4240098DB4F4A44743A2635E89A233E321CB4896C71976E1A3', username='uberadmin', fname='Ub3r1337', lname='H4x0r' WHERE id=1;
+				UPDATE users SET password='reset', password_salt='reset', username='uberadmin', fname='Ub3r1337', lname='H4x0r' WHERE id=1;
 
 				DROP TABLE IF EXISTS players;
 				CREATE TABLE players (
