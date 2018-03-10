@@ -278,6 +278,13 @@ class Login extends MY_Controller {
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Jordan Duncan','Jordan','Duncan',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Gavin Bechtold','Gavin','Bechtold',1500,1500);
 					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Jan Creidenberg','Jan','Creidenberg',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Lee Jacobs','Lee','Jacobs',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Shravan Byra','Shravan','Byra',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Kyle Brown','Kyle','Brown',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Shibo Yao','Shibo','Yao',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Eric Lafon','Eric','Lafon',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Justin Ward','Justin','Ward',1500,1500);
+					INSERT INTO players(nickname,fname,lname,rating,realtime_rating) VALUES('Ohad Tzur','Ohad','Tzur',1500,1500);
 					INSERT INTO rank_epoch() VALUES();
 				");
 				$add_players->execute();
