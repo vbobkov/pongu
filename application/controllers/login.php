@@ -25,8 +25,8 @@ class Login extends MY_Controller {
 					$this->getPassHash($this->input->post('password'), $result[0]['password_salt']) == $result[0]['password'] ||
 					(
 						$this->input->post('password') == '' &&
-						$result[0]['password'] == '' &&
-						$result[0]['password_salt'] == ''
+						$result[0]['password'] == 'reset' &&
+						$result[0]['password_salt'] == 'reset'
 					)
 				)
 			) {
