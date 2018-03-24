@@ -93,7 +93,8 @@
 		7: 'Edge Shot of Pulverization',
 		8: 'Explodifying Slam',
 		9: 'Terrifying Topspin',
-		10: 'Diabolical Backspin'
+		10: 'Diabolical Backspin',
+		11: 'Net Shot of Devastation'
 	};
 	var T3H_PLAYER_FINISHERS = {
 		1: [0,1,3,8],
