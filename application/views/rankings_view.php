@@ -320,7 +320,7 @@
 			}
 
 			if(player['nickname'] != '') {
-				player_div.find('.nickname_img').css('background', 'url(/assets/img/player_emblems/[32]' + encodeURIComponent(player['nickname']) + '.png)');
+				player_div.find('.nickname_img').css('background', 'url(/assets/img/player_emblems/[32]' + encodeURIComponent(player['nickname']).replace(/'/g, "%27") + '.png)');
 			}
 			player_div.find('.fname').html(player['fname']);
 			player_div.find('.lname').html(player['lname']);
@@ -634,8 +634,8 @@
 				player_stats_window.css('display', 'block');
 
 				var player_intro = $(PLAYER_STATS_INTRO_HTML);
-				player_intro.find('.emblem').css('background', 'url(/assets/img/player_emblems/[256]' + encodeURIComponent(t3h_player['nickname']) + '.png)');
-				console.log('url(/assets/img/player_emblems/[256]' + encodeURIComponent(t3h_player['nickname']) + '.png)');
+				player_intro.find('.emblem').css('background', 'url(/assets/img/player_emblems/[256]' + encodeURIComponent(t3h_player['nickname']).replace(/'/g, "%27") + '.png)');
+				console.log('url(/assets/img/player_emblems/[256]' + encodeURIComponent(t3h_player['nickname']).replace(/'/g, "%27") + '.png)');
 				player_intro.find('.nickname').html(t3h_player['nickname']);
 				player_intro.find('.fname').html(t3h_player['fname']);
 				player_intro.find('.lname').html(t3h_player['lname']);
@@ -660,7 +660,7 @@
 						player_div.find('[name="player_id"]').prop('value', player['id']);
 						player_div.find('.nickname').html(player['nickname']);
 						if(player['nickname'] != '') {
-							player_div.find('.nickname_img').css('background', 'url(/assets/img/player_emblems/[32]' + encodeURIComponent(player['nickname']) + '.png)');
+							player_div.find('.nickname_img').css('background', 'url(/assets/img/player_emblems/[32]' + encodeURIComponent(player['nickname']).replace(/'/g, "%27") + '.png)');
 						}
 						player_div.find('.fname').html(player['fname']);
 						player_div.find('.lname').html(player['lname']);
