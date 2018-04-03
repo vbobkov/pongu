@@ -1,5 +1,5 @@
-<div><button id="autoscroll">Auto Scroll Rankings</button></div>
-<div><button id="autocycle">Auto Cycle Stats</button></div>
+<div style="display:none"><button id="autoscroll">Auto Scroll Rankings</button></div>
+<div style="display:none"><button id="autocycle">Auto Cycle Stats</button></div>
 <div id="pongu_rankings">
 	<div class="headers">
 		<div class="header">Player</div>
