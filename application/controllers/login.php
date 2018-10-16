@@ -202,6 +202,7 @@ class Login extends MY_Controller {
 		}
 
 		try {
+			// mysqldump -u root -h localhost pongu > "pongu $(date).sql"
 			/*
 			UPDATE users SET password='reset', password_salt='reset', username='uberadmin', fname='Ub3r1337', lname='H4x0r' WHERE id=1;
 			uberadmin / 1337h4x
