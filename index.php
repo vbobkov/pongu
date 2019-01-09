@@ -1,10 +1,9 @@
 <?php
-echo 'Connecting to database: pongu';
-$dbh=mysql_connect('internal.cdob06sdskjd.us-east-1.rds.amazonaws.com:3306', 'pongu', 'Ub3rL33tH4X')
-	or die('Cannot connect to the database because: ' . mysql_error());
-mysql_select_db('pongu');
-echo '<br />   Connected OK:'  ;
-die( 'file: ' .__FILE__ . ' Line: ' .__LINE__); 
+// echo 'Connecting to database: pongu';
+// $dbh=mysql_connect('internal.cdob06sdskjd.us-east-1.rds.amazonaws.com:3306', 'pongu', 'Ub3rL33tH4X') or die('Cannot connect to the database because: ' . mysql_error());
+// mysql_select_db('pongu');
+// echo '<br />   Connected OK:'  ;
+// die( 'file: ' .__FILE__ . ' Line: ' .__LINE__);
 
 if(!ini_get('date.timezone')) {
 	date_default_timezone_set('America/Los_Angeles');
