@@ -5,10 +5,11 @@ user nginx;
 
 # Decent starting point for this is the number of cores/threads on the machine
 # cat /proc/cpuinfo | grep ^processor | wc -l
-worker_processes 4;
+# worker_processes 4;
+worker_processes 1;
 
 #
-worker_rlimit_nofile 262144;
+# worker_rlimit_nofile 262144;
 
 # Pid file location, the default value will often be just fine
 #pid /var/run/nginx.pid;

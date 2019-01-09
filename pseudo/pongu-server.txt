@@ -24,10 +24,10 @@ systemctl start php-fpm
 # systemctl enable redis
 # systemctl start redis
 
-# cd /root
-# wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-# sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
-# yum install mysql-server
+cd /root
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum install -y mysql-server
 # systemctl enable mysqld
 # systemctl start mysqld
 
