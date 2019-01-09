@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'internal.cdob06sdskjd.us-east-1.rds.amazonaws.com:3306';
+$db['default']['hostname'] = 'internal.cdob06sdskjd.us-east-1.rds.amazonaws.com';
 $db['default']['username'] = 'pongu';
 $db['default']['password'] = 'Ub3rL33tH4X';
 $db['default']['database'] = 'pongu';

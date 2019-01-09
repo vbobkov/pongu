@@ -1,6 +1,6 @@
 {
 	"dev": {
-		"hostname": "127.0.0.1",
+		"hostname": "internal.cdob06sdskjd.us-east-1.rds.amazonaws.com",
 		"username": "pongu",
 		"password": "Ub3rL33tH4X",
 		"database": "pongu",
@@ -17,7 +17,7 @@
 		"stricton": false
 	},
 	"live": {
-		"hostname": "127.0.0.1",
+		"hostname": "internal.cdob06sdskjd.us-east-1.rds.amazonaws.com",
 		"username": "pongu",
 		"password": "Ub3rL33tH4X",
 		"database": "pongu",
