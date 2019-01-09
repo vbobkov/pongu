@@ -4,7 +4,7 @@
 */
 
 class Users_model extends MY_Model {
-	private static $SQL_getUser = "SELECT id,password,password_salt,type,username FROM users";
+	private static $SQL_getUser = "SELECT id,password,password_salt,type,username FROM pongu.users";
 
 	private static $SQL_updateUser = "UPDATE users SET ";
 	private static $SQL_updateUser2 = " WHERE id = ?";

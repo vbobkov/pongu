@@ -1,4 +1,5 @@
 ezdock-chef-server [
+vpc-1f428166 | ezoic_shared_vpc
 i-033b3a003f0ac1730
 ssh -i /Users/victorbobkov/Documents/aws/FARM-14311-ab6d8171.us-east-1.pem centos@34.203.149.31
 ]
