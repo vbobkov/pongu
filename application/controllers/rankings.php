@@ -88,11 +88,17 @@ class Rankings extends MY_Controller {
 		else {
 			$new_rank_epoch = array();
 		}
+		$afk_grace_period = 3600*24*7*2; // 2 weeks
 		foreach($new_rankings as $idx => $new_ranking) {
-			// $new_rankings[$idx]['afk'] = 0;
+			if(time() - strtotime($new_ranking['last_played']) > $afk_grace_period) {
+				$new_rankings[$idx]['afk'] = 1;
+			}
+			else {
+				$new_rankings[$idx]['afk'] = 0;
+			}
 		}
 
-		$column_names = array('id','nickname','fname','lname','rating','realtime_rating','highest_rank','highest_rating');
+		$column_names = array('id','nickname','fname','lname','rating','realtime_rating','highest_rank','highest_rating','last_played');
 		$column_names2 = array('id','last_sync');
 		$this->Users_model->importRows('players', 'id', $new_rankings, $column_names, $column_names);
 		$this->Users_model->importRows('rank_epoch', 'id', array($new_rank_epoch), $column_names2, $column_names2);
@@ -138,6 +144,17 @@ class Rankings extends MY_Controller {
 		foreach($battle_results as $result) {
 			$player_ids[] = $result['player_id'];
 		}
+
+		$now = date("Y-m-d H:i:s", time());
+		$new_rankings = array();
+		foreach($player_ids as $player_id) {
+			$new_rankings[] = array(
+				'id' => $player_id,
+				'last_played' => $now
+			);
+		}
+		$column_names = array('id','last_played');
+		$this->Users_model->importRows('players', 'id', $new_rankings, $column_names, $column_names);
 
 		$existing_battles = $this->Users_model->getFromTable('battles', 'player_id', $player_ids);
 		$current_existing_battle;
