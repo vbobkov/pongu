@@ -306,6 +306,7 @@ class Login extends MY_Controller {
 					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Evan Schoenberger','Evan','Schoenberger',1500,1500);
 
 					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Drew Lawrence','Drew','Lawrence',1500,1500);
+					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Jeff Bernard','Jeff','Bernard',1500,1500);
 				");
 				// INSERT INTO pongu.rank_epoch() VALUES();
 				$add_players->execute();
