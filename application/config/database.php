@@ -54,6 +54,7 @@ switch($_SERVER["HTTP_HOST"]){
 		$active_group = 'default';
 		break;
 }
+$_SESSION["active_group"] = $active_group;
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'internal.cdob06sdskjd.us-east-1.rds.amazonaws.com';

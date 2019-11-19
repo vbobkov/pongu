@@ -179,6 +179,7 @@ class Login extends MY_Controller {
 	}
 
 	// http://pongu.ezoic.com/login/resetDBToFactorySettings?pw=Z0MGUb3rL33tH4X&ap=1
+	// http://ncl-pongu.ezoic.com/login/resetDBToFactorySettings?pw=Z0MGUb3rL33tH4X&ap=1
 	public function resetDBToFactorySettings() {
 		$pw = 'Z0MGUb3rL33tH4X';
 		if(
