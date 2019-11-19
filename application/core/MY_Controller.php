@@ -123,7 +123,7 @@ class MY_Controller extends CI_Controller {
 
 
 
-	protected function render($url, $data = null) {
+	protected function render($url, $data = array()) {
 		if($this->input->is_ajax_request()) {
 			$this->load->view($url);
 		}
@@ -154,6 +154,7 @@ class MY_Controller extends CI_Controller {
 					// 'version' => $version
 				)
 			);
+			$data['db_name'] = $this->db->database;
 			$this->load->view($url, $data);
 			$this->load->view('page_footer');
 		}
