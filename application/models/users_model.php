@@ -23,14 +23,14 @@ class Users_model extends MY_Model {
 		$result = array();
 		if(isset($params['id'])) {
 			$result = $this->db->query(
-				Users_model::$SQL_getUser .
+				$this->SQL_getUser .
 				" WHERE id = ?",
 				array($params['id'])
 			)->result_array();
 		}
 		else {
 			$result = $this->db->query(
-				Users_model::$SQL_getUser .
+				$this->SQL_getUser .
 				" WHERE username = ?",
 				array($params['username'])
 			)->result_array();
