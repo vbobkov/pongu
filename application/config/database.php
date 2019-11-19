@@ -58,7 +58,7 @@ switch($pongu_region) {
 		break;
 }
 */
-if($pongu_region == 'newcastle') {
+if(strpos($pongu_region, 'newcastle') !== false) {
 	$dbname = 'pongu_ncl';
 }
 else {
