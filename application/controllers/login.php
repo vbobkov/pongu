@@ -180,6 +180,8 @@ class Login extends MY_Controller {
 
 	// http://pongu.ezoic.com/login/resetDBToFactorySettings?pw=Z0MGUb3rL33tH4X&ap=1
 	// http://ncl-pongu.ezoic.com/login/resetDBToFactorySettings?pw=Z0MGUb3rL33tH4X&ap=1
+	// http://pongu.ezoic.com/login/resetDBToFactorySettings?pw=Z0MGUb3rL33tH4X
+	// http://ncl-pongu.ezoic.com/login/resetDBToFactorySettings?pw=Z0MGUb3rL33tH4X
 	public function resetDBToFactorySettings() {
 		$pw = 'Z0MGUb3rL33tH4X';
 		if(
@@ -219,12 +221,12 @@ class Login extends MY_Controller {
 			$plain_pdo = new PDO('mysql:host=' . $this->db->hostname . ';dbname=' . $this->db->database, $this->db->username, $this->db->password);
 			$plain_pdo->exec("
 				DROP TABLE IF EXISTS " . $this->Users_model->db_name . ".users;
-				CREATE TABLE pongu.users (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,username VARCHAR(255) NOT NULL,type INT(3) NOT NULL DEFAULT 0,password VARCHAR(255),password_salt VARCHAR(255),fname VARCHAR(255),lname VARCHAR(255),UNIQUE(username));
+				CREATE TABLE " . $this->Users_model->db_name . ".users (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,username VARCHAR(255) NOT NULL,type INT(3) NOT NULL DEFAULT 0,password VARCHAR(255),password_salt VARCHAR(255),fname VARCHAR(255),lname VARCHAR(255),UNIQUE(username));
 				INSERT INTO users(username,type) VALUES('uberadmin',255);
 				UPDATE users SET password='9830dda78497163c0e1ade48a16836ed50cf70e47c36e82bdd8cfa32fb645ed8ec7e7a63de11b9ab19ad6db0f8e4fa2e2bc3691d64adf5e5af7ea194b9adaa76', password_salt='56E17DBC5E931A64828406910A46D9CBF457E74E7BB17EBA367011E6F6DCB4B210D8C6482A79DF4240098DB4F4A44743A2635E89A233E321CB4896C71976E1A3', username='uberadmin', fname='Ub3r1337', lname='H4x0r' WHERE id=1;
 
-				DROP TABLE IF EXISTS pongu.players;
-				CREATE TABLE pongu.players (
+				DROP TABLE IF EXISTS " . $this->Users_model->db_name . ".players;
+				CREATE TABLE " . $this->Users_model->db_name . ".players (
 					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 					active INT(1) DEFAULT 1 NOT NULL,
 					afk INT(1) DEFAULT 0 NOT NULL,
@@ -237,21 +239,21 @@ class Login extends MY_Controller {
 					highest_rating INT(11),
 					UNIQUE(fname,lname)
 				);
-				DROP TABLE IF EXISTS pongu.rank_epoch;
-				CREATE TABLE pongu.rank_epoch (
+				DROP TABLE IF EXISTS " . $this->Users_model->db_name . ".rank_epoch;
+				CREATE TABLE " . $this->Users_model->db_name . ".rank_epoch (
 					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 					last_sync TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 				);
-				DROP TABLE IF EXISTS pongu.battles;
-				CREATE TABLE pongu.battles (
+				DROP TABLE IF EXISTS " . $this->Users_model->db_name . ".battles;
+				CREATE TABLE " . $this->Users_model->db_name . ".battles (
 					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 					player_id INT(11),
 					opponent_id INT(11),
 					wins INT(11),
 					UNIQUE(player_id,opponent_id)
 				);
-				DROP TABLE IF EXISTS pongu.combat_log;
-				CREATE TABLE pongu.combat_log (
+				DROP TABLE IF EXISTS " . $this->Users_model->db_name . ".combat_log;
+				CREATE TABLE " . $this->Users_model->db_name . ".combat_log (
 					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 					caster VARCHAR(255),
 					spell VARCHAR(255),
@@ -259,8 +261,8 @@ class Login extends MY_Controller {
 					time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 					unique(time)
 				);
-				DROP TABLE IF EXISTS pongu.history;
-				CREATE TABLE pongu.history (
+				DROP TABLE IF EXISTS " . $this->Users_model->db_name . ".history;
+				CREATE TABLE " . $this->Users_model->db_name . ".history (
 					id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 					winner_id INT(11),
 					loser_id INT(11),
@@ -274,40 +276,40 @@ class Login extends MY_Controller {
 
 			if($add_players) {
 				$add_players = $plain_pdo->prepare("
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Victor Bobkov','Victor','Bobkov',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Dwayne Lafleur','Dwayne','Lafleur',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Dan O\'Bryan','Dan','O\'Bryan',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Jordan Duncan','Jordan','Duncan',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Gavin Bechtold','Gavin','Bechtold',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Jan Creidenberg','Jan','Creidenberg',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Lee Jacobs','Lee','Jacobs',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Shravan Byra','Shravan','Byra',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Kyle Brown','Kyle','Brown',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Shibo Yao','Shibo','Yao',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Eric Lafon','Eric','Lafon',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Justin Ward','Justin','Ward',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Ohad Tzur','Ohad','Tzur',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Gabino Dabdoub','Gabino','Dabdoub',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Marissa Signer','Marissa','Signer',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Ned Flanders','Ned','Flanders',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Cory Gulker','Cory','Gulker',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Victor Bobkov','Victor','Bobkov',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Dwayne Lafleur','Dwayne','Lafleur',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Dan O\'Bryan','Dan','O\'Bryan',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Jordan Duncan','Jordan','Duncan',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Gavin Bechtold','Gavin','Bechtold',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Jan Creidenberg','Jan','Creidenberg',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Lee Jacobs','Lee','Jacobs',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Shravan Byra','Shravan','Byra',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Kyle Brown','Kyle','Brown',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Shibo Yao','Shibo','Yao',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Eric Lafon','Eric','Lafon',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Justin Ward','Justin','Ward',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Ohad Tzur','Ohad','Tzur',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Gabino Dabdoub','Gabino','Dabdoub',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Marissa Signer','Marissa','Signer',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Ned Flanders','Ned','Flanders',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Cory Gulker','Cory','Gulker',1500,1500);
 
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Ally Gelhaar','Ally','Gelhaar',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Kyle Weiner','Kyle','Weiner',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Jurgen Dieber','Jurgen','Dieber',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Hannah Stoever','Hannah','Stoever',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Dustin Cottle','Dustin','Cottle',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Thuan Chau','Thuan','Chau',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Byron Luk','Byron','Luk',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Joshua Timms','Joshua','Timms',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Zenna Arab','Zenna','Arab',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Kevin Beyer','Kevin','Beyer',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Jeremiah Brown','Jeremiah','Brown',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Megan Ly','Megan','Ly',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Evan Schoenberger','Evan','Schoenberger',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Ally Gelhaar','Ally','Gelhaar',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Kyle Weiner','Kyle','Weiner',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Jurgen Dieber','Jurgen','Dieber',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Hannah Stoever','Hannah','Stoever',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Dustin Cottle','Dustin','Cottle',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Thuan Chau','Thuan','Chau',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Byron Luk','Byron','Luk',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Joshua Timms','Joshua','Timms',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Zenna Arab','Zenna','Arab',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Kevin Beyer','Kevin','Beyer',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Jeremiah Brown','Jeremiah','Brown',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Megan Ly','Megan','Ly',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Evan Schoenberger','Evan','Schoenberger',1500,1500);
 
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Drew Lawrence','Drew','Lawrence',1500,1500);
-					INSERT INTO pongu.players(nickname,fname,lname,rating,realtime_rating) VALUES('Jeff Bernard','Jeff','Bernard',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Drew Lawrence','Drew','Lawrence',1500,1500);
+					INSERT INTO " . $this->Users_model->db_name . ".players(nickname,fname,lname,rating,realtime_rating) VALUES('Jeff Bernard','Jeff','Bernard',1500,1500);
 				");
 				// INSERT INTO pongu.rank_epoch() VALUES();
 				$add_players->execute();

@@ -6,7 +6,7 @@
 class MY_Model extends CI_Model {
 	private $db_config;
 	private $db_config_path;
-	protected $db_name;
+	public $db_name;
 
 	public function __construct($load_database = true) {
 		parent::__construct();
