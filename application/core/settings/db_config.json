@@ -18,7 +18,7 @@
 	},
 	"newcastle": {
 		"hostname": "internal.cdob06sdskjd.us-east-1.rds.amazonaws.com",
-		"username": "pongu",
+		"username": "ponguncl",
 		"password": "Ub3rL33tH4X",
 		"database": "ponguncl",
 		"dbdriver": "mysql",
