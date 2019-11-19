@@ -4,8 +4,7 @@
 */
 
 class Users_model extends MY_Model {
-	private static $SQL_getUser;
-
+	private $SQL_getUser;
 	private static $SQL_updateUser = "UPDATE users SET ";
 	private static $SQL_updateUser2 = " WHERE id = ?";
 
