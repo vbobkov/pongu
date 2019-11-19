@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'default';
+$active_group = 'california';
 $active_record = TRUE;
 
 $db['california']['hostname'] = 'internal.cdob06sdskjd.us-east-1.rds.amazonaws.com';
