@@ -33,7 +33,7 @@
 <div id="player_stats">
 </div>
 
-<div id="active_group" style="display: none;"><?php echo $_SESSION["active_group"]; ?></div>
+<div id="active_group" style="display: none;"><?php echo $this->session->userdata('active_group'); ?></div>
 
 <script type="text/javascript">
 	var ELO_FIDE_DIFF_TABLE = [392,375,358,345,327,316,303,291,279,268,257,246,236,226,216,207,198,189,180,171,163,154,146,138,130,122,114,107,99,92,84,77,69,62,54,47,40,33,26,18,11,4,0];
