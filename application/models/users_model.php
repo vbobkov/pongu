@@ -4,12 +4,17 @@
 */
 
 class Users_model extends MY_Model {
-	private static $SQL_getUser = "SELECT id,password,password_salt,type,username FROM pongu.users";
+	private static $SQL_getUser;
 
 	private static $SQL_updateUser = "UPDATE users SET ";
 	private static $SQL_updateUser2 = " WHERE id = ?";
 
 
+
+	public function __construct($load_database = true) {
+		parent::__construct();
+		$this->SQL_getUser = "SELECT id,password,password_salt,type,username FROM " . $this->db_name . ".users";
+	}
 
 	public function getUser($params = array()) {
 		if(!(isset($params['id']) || isset($params['username']))) {

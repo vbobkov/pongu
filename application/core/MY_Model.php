@@ -6,6 +6,7 @@
 class MY_Model extends CI_Model {
 	private $db_config;
 	private $db_config_path;
+	protected $db_name;
 
 	public function __construct($load_database = true) {
 		parent::__construct();
@@ -17,6 +18,7 @@ class MY_Model extends CI_Model {
 				$pongu_region = 'california';
 			}
 			$dbconfig = $this->db_config[$pongu_region];
+			$this->db_name = $dbconfig['database'];
 			$this->load->database($dbconfig);
 		}
 	}
@@ -38,7 +40,7 @@ class MY_Model extends CI_Model {
 		if(sizeof($rows) < 1) {
 			return false;
 		}
-		$sql1 = "INSERT INTO pongu." . $table_name . "(";
+		$sql1 = "INSERT INTO " . $this->db_name . "." . $table_name . "(";
 		$sql2 = ") VALUES";
 
 		$insert_sql_row;
@@ -70,7 +72,7 @@ class MY_Model extends CI_Model {
 		$result = array();
 
 		if(isset($params['ids']) && is_array($params['ids']) && sizeof($params['ids']) > 0) {
-			$sql1 = "DELETE FROM pongu." . $table_name . " WHERE " . $id_name . " IN(";
+			$sql1 = "DELETE FROM " . $this->db_name . "." . $table_name . " WHERE " . $id_name . " IN(";
 			$sql2 = ") ";
 			if(is_array($params['ids'])) {
 				foreach($params['ids'] as $idx => $id) {
@@ -81,7 +83,7 @@ class MY_Model extends CI_Model {
 			$result = $this->db->query($sql1 . $params['ids'] . $sql2 . " " . $filters);
 		}
 		else {
-			$result = $this->db->query("DELETE FROM pongu." . $table_name . " " . $filters);
+			$result = $this->db->query("DELETE FROM " . $this->db_name . "." . $table_name . " " . $filters);
 		}
 		if(is_object($result)) {
 			return $result->result_array();
@@ -102,7 +104,7 @@ class MY_Model extends CI_Model {
 
 		if(isset($params['ids']) && is_array($params['ids'])) {
 			if(sizeof($params['ids']) > 0) {
-				$sql1 = "SELECT " . $params['columns'] . " FROM pongu." . $table_name . " WHERE " . $id_name . " IN(";
+				$sql1 = "SELECT " . $params['columns'] . " FROM " . $this->db_name . "." . $table_name . " WHERE " . $id_name . " IN(";
 				$sql2 = ") ";
 				if(is_array($params['ids'])) {
 					foreach($params['ids'] as $idx => $id) {
@@ -117,7 +119,7 @@ class MY_Model extends CI_Model {
 			}
 		}
 		else {
-			$result = $this->db->query("SELECT " . $params['columns'] . " FROM pongu." . $table_name . " " . $filters)->result_array();
+			$result = $this->db->query("SELECT " . $params['columns'] . " FROM " . $this->db_name . "." . $table_name . " " . $filters)->result_array();
 		}
 		return $result;
 	}
@@ -129,7 +131,7 @@ class MY_Model extends CI_Model {
 		}
 
 		if($this->db->query(
-			"UPDATE pongu." . $table_name . " SET " . $update_sql['set'] . " " . $filter,
+			"UPDATE " . $this->db_name . "." . $table_name . " SET " . $update_sql['set'] . " " . $filter,
 			$update_sql['values']
 		)) {
 			return true;
@@ -146,7 +148,7 @@ class MY_Model extends CI_Model {
 		}
 
 		if($this->db->query(
-			"UPDATE pongu." . $table_name . " SET " . $update_sql['set'] . " WHERE " . $id_name . " = ?",
+			"UPDATE " . $this->db_name . "." . $table_name . " SET " . $update_sql['set'] . " WHERE " . $id_name . " = ?",
 			$update_sql['values']
 		)) {
 			return true;
@@ -161,9 +163,9 @@ class MY_Model extends CI_Model {
 			return;
 		}
 
-		$SQL_addRow = "INSERT INTO pongu." . $table_name . "(";
+		$SQL_addRow = "INSERT INTO " . $this->db_name . "." . $table_name . "(";
 		$SQL_addRow2 = ") VALUES(";
-		$SQL_updateRow = "UPDATE pongu." . $table_name . " SET ";
+		$SQL_updateRow = "UPDATE " . $this->db_name . "." . $table_name . " SET ";
 		$SQL_updateRow2 = " WHERE " . $id_name . " = ?";
 
 		if(!is_array($insert_columns)) {
