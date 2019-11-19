@@ -48,7 +48,6 @@
 $active_group = 'default';
 $dbname = 'pongu';
 $pongu_region = file_get_contents('/var/www/pongu_region.txt');
-/*
 switch($pongu_region) {
 	case "newcastle":
 		$dbname = 'pongu_ncl';
@@ -56,13 +55,6 @@ switch($pongu_region) {
 	default:
 		$dbname = 'pongu';
 		break;
-}
-*/
-if(strpos($pongu_region, 'newcastle') !== false) {
-	$dbname = 'pongu_ncl';
-}
-else {
-	$dbname = 'pongu';
 }
 $active_record = TRUE;
 

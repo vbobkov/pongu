@@ -1,5 +1,5 @@
 {
-	"dev": {
+	"california": {
 		"hostname": "internal.cdob06sdskjd.us-east-1.rds.amazonaws.com",
 		"username": "pongu",
 		"password": "Ub3rL33tH4X",
@@ -16,11 +16,11 @@
 		"autoinit": true,
 		"stricton": false
 	},
-	"live": {
+	"newcastle": {
 		"hostname": "internal.cdob06sdskjd.us-east-1.rds.amazonaws.com",
 		"username": "pongu",
 		"password": "Ub3rL33tH4X",
-		"database": "pongu",
+		"database": "pongu_ncl",
 		"dbdriver": "mysql",
 		"dbprefix": "",
 		"pconnect": true,

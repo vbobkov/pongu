@@ -12,7 +12,11 @@ class MY_Model extends CI_Model {
 		$this->db_config_path = FCPATH . 'application/core/settings/db_config.json';
 		$this->db_config = json_decode(file_get_contents($this->db_config_path), true);
 		if($this->router->fetch_class() != 'admin' || $this->router->fetch_method() != 'editDBConfig') {
-			$this->load->database($this->db_config['dev']);
+			$pongu_region = file_get_contents('/var/www/pongu_region.txt');
+			if($pongu_region === false || $pongu_region == '') {
+				$pongu_region = 'california';
+			}
+			$this->load->database($this->db_config[$pongu_region]);
 		}
 	}
 
