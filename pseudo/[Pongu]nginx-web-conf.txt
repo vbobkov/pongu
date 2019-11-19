@@ -137,6 +137,7 @@ http {
 			fastcgi_index index.php;
 			#fastcgi_param SCRIPT_FILENAME /Users/V/pongu$fastcgi_script_name;
 			fastcgi_param SCRIPT_FILENAME /var/www/pongu$fastcgi_script_name;
+			#fastcgi_param PONGU_REGION newcastle;
 			include fastcgi_params;
 		}
 		location ~ /(pseudo) {
