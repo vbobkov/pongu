@@ -1,7 +1,3 @@
-<?php
-$this_db = $this->load->database();
-?>
-
 <div style="display:none"><button id="autoscroll">Auto Scroll Rankings</button></div>
 <div style="display:none"><button id="autocycle">Auto Cycle Stats</button></div>
 <div id="pongu_rankings">
@@ -37,7 +33,7 @@ $this_db = $this->load->database();
 <div id="player_stats">
 </div>
 
-<div id="db_name" style="display: none;"><?php echo $this_db->database; ?></div>
+<div id="db_name" style="display: none;"><?php echo $db_name; ?></div>
 
 <script type="text/javascript">
 	var ELO_FIDE_DIFF_TABLE = [392,375,358,345,327,316,303,291,279,268,257,246,236,226,216,207,198,189,180,171,163,154,146,138,130,122,114,107,99,92,84,77,69,62,54,47,40,33,26,18,11,4,0];
