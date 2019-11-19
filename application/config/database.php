@@ -47,7 +47,7 @@
 
 $active_group = 'default';
 $dbname = 'pongu';
-$pongu_region = file_get_contents('/root/pongu_region.txt');
+$pongu_region = file_get_contents('/var/www/pongu_region.txt');
 switch($pongu_region) {
 	case "newcastle":
 		$dbname = 'pongu_ncl';
