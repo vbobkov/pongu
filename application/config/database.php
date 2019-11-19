@@ -54,7 +54,7 @@ switch($_SERVER["HTTP_HOST"]){
 		$active_group = 'default';
 		break;
 }
-$this->session->set_userdata('active_group', $active_group);
+define('DB_ACTIVE_GROUP', $active_group)
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'internal.cdob06sdskjd.us-east-1.rds.amazonaws.com';
