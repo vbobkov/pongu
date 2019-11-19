@@ -46,7 +46,7 @@
 */
 
 $active_group = 'default';
-switch($_SERVER["HTTP_HOST"]){
+switch($_SERVER["HTTP_HOST"]) {
 	case "ncl-pongu.ezoic.com":
 		$active_group = 'newcastle';
 		break;
@@ -54,7 +54,6 @@ switch($_SERVER["HTTP_HOST"]){
 		$active_group = 'default';
 		break;
 }
-define('DB_ACTIVE_GROUP', $active_group)
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'internal.cdob06sdskjd.us-east-1.rds.amazonaws.com';
