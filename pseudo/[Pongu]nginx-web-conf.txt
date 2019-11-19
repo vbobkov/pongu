@@ -110,6 +110,7 @@ http {
 		listen 80;
 		# server_name pongu.local;
 		server_name pongu.ezoic.com;
+		# server_name ncl-pongu.ezoic.com;
 		#root  /Users/V/pongu;
 		root  /var/www/pongu;
 		index index.php index.html index.htm;

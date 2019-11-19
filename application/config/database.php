@@ -50,7 +50,7 @@ $dbname = 'pongu';
 $pongu_region = file_get_contents('/var/www/pongu_region.txt');
 switch($pongu_region) {
 	case "newcastle":
-		$dbname = 'pongu_ncl';
+		$dbname = 'ponguncl';
 		break;
 	default:
 		$dbname = 'pongu';
