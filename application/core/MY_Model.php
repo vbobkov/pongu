@@ -16,7 +16,6 @@ class MY_Model extends CI_Model {
 			if($pongu_region === false || $pongu_region == '') {
 				$pongu_region = 'california';
 			}
-			$this->db->close();
 			$dbconfig = $this->db_config[$pongu_region];
 			$this->load->database($dbconfig);
 		}
