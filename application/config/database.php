@@ -46,31 +46,31 @@
 */
 
 $active_group = 'default';
-switch($_SERVER["HTTP_HOST"]) {
-	case "ncl-pongu.ezoic.com":
+switch(getenv('PONGU_REGION')) {
+	case "newcastle":
 		$active_group = 'newcastle';
 		break;
 	default:
-		$active_group = 'default';
+		$active_group = 'california';
 		break;
 }
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'internal.cdob06sdskjd.us-east-1.rds.amazonaws.com';
-$db['default']['username'] = 'pongu';
-$db['default']['password'] = 'Ub3rL33tH4X';
-$db['default']['database'] = 'pongu';
-$db['default']['dbdriver'] = 'mysql';
-$db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
-$db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = '';
-$db['default']['char_set'] = 'utf8';
-$db['default']['dbcollat'] = 'utf8_general_ci';
-$db['default']['swap_pre'] = '';
-$db['default']['autoinit'] = TRUE;
-$db['default']['stricton'] = FALSE;
+$db['california']['hostname'] = 'internal.cdob06sdskjd.us-east-1.rds.amazonaws.com';
+$db['california']['username'] = 'pongu';
+$db['california']['password'] = 'Ub3rL33tH4X';
+$db['california']['database'] = 'pongu';
+$db['california']['dbdriver'] = 'mysql';
+$db['california']['dbprefix'] = '';
+$db['california']['pconnect'] = TRUE;
+$db['california']['db_debug'] = TRUE;
+$db['california']['cache_on'] = FALSE;
+$db['california']['cachedir'] = '';
+$db['california']['char_set'] = 'utf8';
+$db['california']['dbcollat'] = 'utf8_general_ci';
+$db['california']['swap_pre'] = '';
+$db['california']['autoinit'] = TRUE;
+$db['california']['stricton'] = FALSE;
 
 $db['newcastle']['hostname'] = 'internal.cdob06sdskjd.us-east-1.rds.amazonaws.com';
 $db['newcastle']['username'] = 'pongu';
