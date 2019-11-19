@@ -578,8 +578,13 @@
 				'opponent_id': loser['id'],
 				'wins': 1
 			});
-			var spell = T3H_FINISHERS[T3H_PLAYER_FINISHERS[winner['id']][Math.floor(Math.random() * T3H_PLAYER_FINISHERS[winner['id']].length)]];
-			// var spell = T3H_FINISHERS[T3H_PLAYER_FINISHERS_DEFAULT[Math.floor(Math.random() * T3H_PLAYER_FINISHERS_DEFAULT.length)]];
+			var spell = '';
+			if T3H_DB_NAME == 'ncl_pongu' {
+				spell = T3H_FINISHERS[T3H_PLAYER_FINISHERS_DEFAULT[Math.floor(Math.random() * T3H_PLAYER_FINISHERS_DEFAULT.length)]];
+			}
+			else {
+				spell = T3H_FINISHERS[T3H_PLAYER_FINISHERS[winner['id']][Math.floor(Math.random() * T3H_PLAYER_FINISHERS[winner['id']].length)]];
+			}
 			var new_combat_log_entry = {
 				'id': -1,
 				'time': convertDateToYMDHMS(new Date()),
